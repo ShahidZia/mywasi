@@ -1,0 +1,45 @@
+{% extends 'properties/property_form_base.html' %}
+{% load widget_tweaks %}
+
+{% block path %}
+  Mis Propiedades > Editar Anuncio > Ubicación
+{% endblock %}
+
+{% block form %}
+  <div class="col-9 pr-0">
+    <br>
+    <h7 class="text-uppercase">UBICACIÓN DE LA PROPIEDAD</h7>
+    <br><br>
+    <form class="row gap-y" method="POST" enctype="multipart/form-data">{% csrf_token %}
+      <div class="col-8">
+        <div class="form-group">
+          <p class="form-label text-left">Calle y Poblacion (Sin Numero)</p>
+          {% render_field form.location class="form-control" %}
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="form-group">
+          <p class="form-label text-left">Numero</p>
+          {% render_field form.number class="form-control" %}
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="form-group">
+          <p class="form-label text-left">Tipo de Inmueble</p>
+          {% render_field form.prop_type class="form-control" %}
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="form-group">
+          <p class="form-label text-left">Inmueble</p>
+          {% render_field form.prop class="form-control" %}
+        </div>
+      </div>
+
+      <div class="col-9"></div>
+      <div class="col-2">
+        <button class="btn btn-bold btn-primary" type="submit">Siguiente</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

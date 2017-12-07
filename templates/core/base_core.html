@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <title>MyWasi</title>
+
+    <!-- Styles -->
+    <link href="{% static 'css/core.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/thesaas.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+    <link rel="icon" href="{% static 'img/favicon.png' %}">
+  </head>
+
+  <body>
+    {% block content %}
+    {% endblock %}
+
+    <!-- Scripts -->
+    <script src="{% static 'static/js/core.min.js' %}"></script>
+    <script src="{% static 'static/js/thesaas.min.js' %}"></script>
+    <script src="{% static 'static/js/script.js' %}"></script>
+  </body>
+</html>

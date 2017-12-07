@@ -1,0 +1,47 @@
+{% load widget_tweaks %}
+
+<!-- Modal Buyer Create New Offer-->
+<div class="modal fade" id="modalBuyerNewOffer" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3 class="text-center">Crear una nueva oferta</h3>
+        <br>
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-12">
+            <div class="col-12 col-md-12 col-lg-12">
+              Es muy fácil! Simplemente sigue los pasos a continuación:
+            </div>
+            <!-- Select with all liked properties -->
+            <br>
+            <form method="POST" action="{% url 'make_offer' %}">{% csrf_token %}
+              <div class="col-12 col-md-12 col-lg-12">
+                <p class="text-left m-0 fs-13"><label>1. Selecciona la propiedad para la que quieres presentar una oferta</label></p>
+                {% render_field make_offer_form.prop class="form-control" %}
+              </div>
+              <br>
+              <div class="col-12 col-md-12 col-lg-12">
+                <p class="text-left m-0 fs-13"><label>2. Define la cantidad que quieres ofertar:</label></p>
+                {% render_field make_offer_form.amount class="form-control" %}
+              </div>
+              <!-- Select Cash or bank transfer -->
+              <br>
+              <div class="col-12 col-md-12 col-lg-12">
+                <p class="text-left m-0 fs-13"><label>3. Como quieres comprar la propiedad?</label></p>
+                {% render_field make_offer_form.payment_type class="form-control" %}
+              </div>
+              <br />
+              <div class="col-4 text-center mt-80">
+                <button type="submit" class="btn btn-bold btn-primary">HACER OFERTA</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Seller Accepted-->

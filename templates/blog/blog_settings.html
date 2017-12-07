@@ -1,0 +1,75 @@
+{% extends 'blog/blog_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="container">
+    <div class="page-header">
+      <div class="btn-toolbar pull-right">
+        <a class="btn btn-success" href="{% url 'post_new' %}"><span class="glyphicon glyphicon-plus"></span> Nuevo</a>
+      </div>
+      <h2>Blog settings</h2>
+    </div>
+    <h4>Posts publicados</h4>
+    <div clas="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Fecha publicación</th>
+              <th>Autor</th>
+              <th>Comentarios</th>
+              <th class="text-center">Borrador</th>
+              <th class="text-center">Editar</th>
+              <th class="text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for post in posts %}
+              <tr>
+                <td><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title | truncatechars:20 }}</a></td>
+                <td>{{ post.published_date }}</td>
+                <td>{{ post.author }}</td>
+                <td><a href="{% url 'comment_settings' pk=post.pk %}">{{ post.comments.count }}</a></td>
+                <td class="text-center"><a class="text-warning" href="{% url 'post_unpublish' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span> Borrador</a></td>
+                <td class="text-center"><a class="text-info" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td class="text-center"><a class="text-danger" href="{% url 'post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Draft posts -->
+    <h4>Borradores</h4>
+    <div clas="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Fecha creación</th>
+              <th>Autor</th>
+              <th class="text-center">Publicar</th>
+              <th class="text-center">Editar</th>
+              <th class="text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for post in no_posts %}
+              <tr>
+                <td><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title | truncatechars:20 }}</a></td>
+                <td>{{ post.created_date }}</td>
+                <td>{{ post.author }}</td>
+                <td class="text-center"><a class="text-success" href="{% url 'post_publish' pk=post.pk %}"><span class="glyphicon glyphicon-ok"></span> Publicar</a></td>
+                <td class="text-center"><a class="text-info" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td class="text-center"><a class="text-danger" href="{% url 'post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

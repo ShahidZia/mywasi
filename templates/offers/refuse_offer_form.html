@@ -1,0 +1,31 @@
+{% load widget_tweaks %}
+
+<!-- Modal Seller Cancel-->
+<div class="modal fade" id="modalSellerCancel" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3 class="text-center">Estas seguro que quieres rechazar la oferta?</h3>
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-12">
+            Si quieres puedes darle feedback. Por ejemplo le puedes decir que la cantidad te parece insuficiente. Al dar feedback aumentas las probabilidades de vender tu piso más rapidamente.
+            <br>
+            <form method="POST" action="#">{% csrf_token %}
+              <div class="col-12 col-md-12 col-lg-12">
+                {% render_field refuse_offer_form.refused_feedback class="form-control" placeholder="Escribe tu feedback aquí..." cols="120" %}
+              </div>
+              <br />
+              <div class="col-12 col-md-12 col-lg-12 text-center mt-80">
+                <button type="submit" class="btn btn-bold btn-primary" align="center">RECHAZAR OFERTA</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Seller Cancelled-->

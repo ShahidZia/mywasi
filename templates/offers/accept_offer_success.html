@@ -1,0 +1,27 @@
+{% load staticfiles %}
+
+<!-- Modal Seller Congrats -->
+<div class="modal fade" id="modalSellerAcceptCongrats" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3 class="text-center">Enhorabuena! Has aceptado la oferta de {{ offer.buyer.first_name }} {{ offer.buyer.last_name }}</h3>
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-12">
+            Ahora lo mas importante es que procedaís con la venta de tu propiedad mediante la firma de arras. Recuerda que durante los próximos 14 días tu piso estará bloqueado y no podrás recibir más ofertas.
+            <div class="col-12 col-md-12 col-lg-12 text-center mt-40">
+              <img width="300px" src="{% static 'img/smile.png' %}" align="center">
+            </div>
+          </div>
+          <div class="col-12 col-md-12 col-lg-12 text-center mt-80">
+            <button type="button" class="btn btn-bold btn-primary" align="center" href="{% url 'list_offers' %}">LLEVAME AL CHAT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Seller Congrats-->

@@ -1,0 +1,27 @@
+{% extends 'blog/blog_base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block content %}
+  <div class="container">
+    <div class="page-header">
+      <div class="btn-toolbar pull-right">
+        <a class="btn btn-info" href="{% url 'blog_settings' %}"><span class="glyphicon glyphicon-chevron-left"></span> Atrás</a>
+      </div>
+      <h2>Post edit</h2>
+    </div>
+    <div clas="row">
+      <div class="col-md-12">
+        <form method="POST">{% csrf_token %}
+          {% for field in form %}
+            <div class="form-group">
+              <label for="title">{{ field.label_tag }}</label>
+              {% render_field field class="form-control" %}
+            </div>
+          {% endfor %}
+          <button type="submit" class="save btn btn-success">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

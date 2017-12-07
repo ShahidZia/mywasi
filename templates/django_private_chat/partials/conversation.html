@@ -1,0 +1,15 @@
+<a class="userOffline" href="{% url 'dialogs_detail' user.id %}" id="{{ userId }}">
+    <section class="card">
+        <div class="card-block">
+            <h5 class="card-title">
+            <span class="ldate pull-right">
+                {{ last.my_get_formatted_create_datetime }}
+            </span>
+                <img src="{{ image }}" class="avatar">
+                <span class="coname">{{ name }}</span>
+                <div class="circle"></div>
+                <span class="last">{{ last.text }}</span>
+            </h5>
+        </div>
+    </section>
+</a>

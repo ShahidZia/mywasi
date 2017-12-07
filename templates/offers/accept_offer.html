@@ -1,0 +1,30 @@
+{% load humanize %}
+
+<!-- Modal Seller Confirm Accepted Offer -->
+<div class="modal fade" id="modalSellerAccept" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3 class="text-center">Confirma que aceptas la oferta</h3>
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-12">
+            Has apretado en el botón “ACEPTAR”; genial! Antes de que lo comuniquemos y se haga oficial nos gustaria que revisaras la oferta de nuevo y confirmaras que esta 100% de acuerdo con ella. Ya casi lo tenemos!
+            <br>
+            <ul class="text-grey text-center mt-40" style="width:300px; margin:0 auto;">
+              <li class="nav-item"><h6 class="text-center fs-14"><i class="fa fa-user" aria-hidden="true"></i> Ofertante: {{ offer.buyer.first_name }} {{ offer.buyer.last_name }}</h6></li>
+              <li class="nav-item"><h6 class="text-center fs-14"><i class="fa fa-calendar-o" aria-hidden="true"></i> Fecha: {{ offer.offer_date | date:"d N Y" }}</h6></li>
+              <li class="nav-item"><h6 class="text-center fs-14"><i class="fa fa-tag" aria-hidden="true"></i> Oferta: {{ offer.amount | intcomma }} EUR</h6></li>
+            </ul>
+          </div>
+          <div class="col-12 col-md-12 col-lg-12 text-center mt-80">
+            <button class="btn btn-bold btn-primary" align="center" data-dismiss="modal" data-toggle="modal" role="button" data-target="#modalSellerAcceptCongrats">ACEPTAR OFERTA</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Seller Accepted-->

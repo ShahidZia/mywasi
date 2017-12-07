@@ -1,0 +1,148 @@
+{% extends 'properties/property_form_base.html' %}
+{% load widget_tweaks %}
+
+{% block path %}
+  Mis Propiedades > Editar Anuncio > Descripción
+{% endblock %}
+
+{% block form %}
+  <div class="col-9">
+    <br>
+    <h7 class="text-uppercase">DESCRIPCIÓN DE LA PROPIEDAD</h7>
+    <br><br>
+    <form class="row gap-y" method="POST" enctype="multipart/form-data">{% csrf_token %}
+      <div class="col-4">
+        <div class="form-group">
+          <p class="form-label text-left">Metros quadrados</p>
+          {% render_field form.sqm class="form-control" %}
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <p class="form-label text-left">Metros quadrados útiles</p>
+          {% render_field form.util_sqm class="form-control" %}
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <p class="form-label text-left">Estado del Inmueble</p>
+          {% render_field form.prop_status class="form-control" %}
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <p class="form-label text-left">Habitaciones</p>
+          {% render_field form.num_bedrooms class="form-control" %}
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <p class="form-label text-left">Baños</p>
+          {% render_field form.num_bathrooms class="form-control" %}
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <p class="form-label text-left">Salones</p>
+          {% render_field form.num_rooms class="form-control" %}
+        </div>
+      </div>
+
+      <div class="col-2">
+        <div class="checkbox">
+						{{ form.swimmingpool }}
+						<label for="id_swimmingpool">Piscina</label>
+			  </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+            {{ form.storageroom }}
+            <label for="id_storageroom">Trastero</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+            {{ form.garden }}
+            <label for="id_garden">Jardin</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+            {{ form.balcony }}
+            <label for="id_balcony">Terraza</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+            {{ form.wardrobe }}
+            <label for="id_wardrobe">Armarios Empotrados</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+            {{ form.hydromassage }}
+            <label for="id_hydromassage">Hidromasaje</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+            {{ form.lift }}
+            <label for="id_lift">Ascensor</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+            {{ form.penthouse }}
+            <label for="id_penthouse">Atico</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+            {{ form.garage }}
+            <label for="id_garage">Garaje</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+            {{ form.ac }}
+            <label for="id_ac">Aire Acondicionado</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+          {{ form.concierge }}
+          <label for="id_concierge">Conserge</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="checkbox">
+          {{ form.cleaner }}
+          <label for="id_cleaner">Limpieza</label>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <p class="form-label text-left">Certificado Energetico</p>
+          {% render_field form.energetic_certificate class="form-control" %}
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <p class="form-label text-left">Orientacion</p>
+          {% render_field form.orientation class="form-control" %}
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <p class="form-label text-left">Descripción</p>
+          {% render_field form.description class="form-control" rows="4" placeholder="Escribe aqui la descripción de la propiedad..." %}
+        </div>
+      </div>
+
+      <div class="col-9"></div>
+      <div class="col-2">
+        <button class="btn btn-bold btn-primary" type="submit">Siguiente</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

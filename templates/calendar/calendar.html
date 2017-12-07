@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <h3>Calendario</h3>
+  <div class="row">
+    <div class="col-9">
+      <div class="card box-typical-full-height">
+        <div class="card-block">
+          <div id="content-main" class="text-right">
+            <ul class="object-tools">
+              <li>
+                <a class="btn btn-primary btn-sm" href={{ extra_context.previous_month }}>
+                  <span class="glyphicon glyphicon-chevron-left"></span> Previous Month
+                </a>
+                <a class="btn btn-primary btn-sm" href={{ extra_context.next_month }}>
+                  Next Month<span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <br />
+          <div id="owncalendar" class="row">
+            {{ extra_context.calendar }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <section class="card">
+        <div class="card-block">
+          <h5 class="card-title">Listado de visitas:</h5>
+          <hr>
+          <!-- List of Buyer/Sellers events name sort by date (latest-first)-->
+          {% for event in events %}
+            <a href="{% url 'event_view' pk=event.pk %}">{{ event.title }}</a>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+  </div>
+{% endblock %}

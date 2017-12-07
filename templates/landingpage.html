@@ -1,0 +1,498 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <title>MyWasi &middot; The world's most popular mobile-first and responsive front-end framework.</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/core.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/thesaas.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+    <link rel="icon" href="{% static 'img/favicon.png' %}">
+  </head>
+
+  <body>
+    <!--
+    |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+    | Topbar 3
+    |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+    !-->
+    <nav class="topbar topbar-inverse topbar-expand-md topbar-sticky">
+      <div class="container">
+        <div class="topbar-left">
+          <button class="topbar-toggler">&#9776;</button>
+          <a class="topbar-brand" href="#">
+            <img class="logo-default" src="{% static 'img/logo.png' %}" alt="logo">
+            <img class="logo-inverse" src="{% static 'img/logo-light.png' %}" alt="logo">
+          </a>
+        </div>
+
+        <div class="topbar-right">
+          <ul class="topbar-nav nav">
+            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">COMO FUNCIONA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">BENEFICIOS</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'pricing' %}">PRECIO</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">BLOG</a></li>
+
+          </ul>
+          <div class="d-inline-flex ml-30">
+            <a class="btn btn-sm btn-primary mr-4  hidden-sm-down" href="{% url 'valuation' %}">Valoracion Online</a>
+            {% if user.is_authenticated %}
+              <div class="dropdown">
+                <button class="btn btn-sm btn-outline btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                  Mi área <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'properties' %}">Propiedades</a></li>
+                  <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+              </div>
+            {% else %}
+              <a class="btn btn-sm btn-outline btn-primary" href="{% url 'login' %}">Login</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Email confirmation popup -->
+    {% block popup %}
+    {% endblock %}
+
+    <!-- Header -->
+    <header class="header header-inverse h-fullscreen pb-80" data-parallax="{% static 'img/bg-man.jpg' %}" data-overlay="8">
+      <div class="container text-center">
+        <div class="row h-full">
+          <div class="col-12 col-lg-8 offset-lg-2 align-self-center">
+            <h1 class="display-4">DI ADIOS A LAS COMISIONES INMOBILIARIAS</h1>
+            <h1 class="hidden-md-up"></h1>
+              <p class="lead text-white fs-20 hidden-sm-down">Mywasi<span class="fw-400"> elimina las comisiones inmobiliarias</span> a traves del uso de tecnologia avanzada que permite la venta entre particulares</p>
+            <br>
+              <a class="btn btn-lg btn-round w-200 btn-primary mr-16" href="#" data-scrollto="section-intro">VENDER MI CASA</a>
+            <br>
+            <br>
+            <br>
+              <i class="fa fa-check" aria-hidden="true"></i>Vende tu piso<span class="fw-400"> de particular a particular</span><br>
+              <i class="fa fa-check" aria-hidden="true"></i><span class="fw-400">Ahorra hasta 15.000€</span> en comisiones inmobiliarias</span><br>
+              <i class="fa fa-check" aria-hidden="true"></i>Recibe ofertas en menos de 15 dias y vende tu piso <span class="fw-400"> menos de 3 meses</span><br>
+              <i class="fa fa-check" aria-hidden="true"></i><span class="fw-400">Controla el 100%</span> del proceso de venta </span><br>
+          </div>
+          <div class="col-12 align-self-end text-center">
+            <a class="scroll-down-1 scroll-down-inverse" href="#" data-scrollto="section-intro"><span></span></a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- END Header -->
+
+    <!-- Main container -->
+    <main class="main-content">
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | Partner 5
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+      <section class="section">
+        <div class="container">
+          <header class="section-header">
+            <h2>Millones de potenciales compradores a tu alcance</h2>
+            <p class="lead">Anunciamos tu piso en todos los portales líderes a nivel nacional e internacional<br>para que vendas tu casa por más y más rápidamente</p>
+          </header>
+
+          <div class="swiper-container partner" data-autoplay="1000" data-slides-per-view="4">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img src="{% static 'img/partner-1.png' %}" alt="..."></div>
+              <div class="swiper-slide"><img src="{% static 'img/partner-2.png' %}" alt="..."></div>
+              <div class="swiper-slide"><img src="{% static 'img/partner-3.png' %}" alt="..."></div>
+              <div class="swiper-slide"><img src="{% static 'img/partner-4.png' %}" alt="..."></div>
+              <div class="swiper-slide"><img src="{% static 'img/partner-5.png' %}" alt="..."></div>
+              <div class="swiper-slide"><img src="{% static 'img/partner-6.png' %}" alt="..."></div>
+              <div class="swiper-slide"><img src="{% static 'img/partner-7.png' %}" alt="..."></div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | Partner 5
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+      <section class="section" style="background-color: #fcfcfc;">
+        <div class="container">
+          <header class="section-header">
+            <h2>Millones de potenciales compradores a tu alcance</h2>
+            <p class="lead">Anunciamos tu piso en todos los portales líderes a nivel nacional e internacional<br>para que vendas tu casa por más y más rápidamente</p>
+          </header>
+
+          <div class="row">
+            <div class="col-12 col-md-3"></div>
+            <div class="col-12 col-md-6">
+              <div class="card-shadowed">
+                <h4 class="fw-300 mb-0 text-center text-gray-dark">Valor de la propiedad</h4>
+                <p class="text-center text-gray-dark">Ahorra € <output></output></p>
+                <!-- Slider with Starting Value -->
+                <input class="mdl-slider mdl-js-slider" type="range" min="20000" max="2000000" step="5000" value="250000" tabindex="0" data-rangeslide>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | How it work-WHOLE SECTION
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | How it work- Header
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+      <!-- Header -->
+      <header class="section" style="background-color: #c2b2cd;">
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-12 col-lg-8 offset-lg-2">
+              <h1>Como funciona?</h1>
+              <p class="fs-20 opacity-70">Mywasi facilita todos los pasos del proceso de venta dandote el 100%<br>del control en todo momento</p>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- END Header -->
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | How it work steps
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+      <section class="section">
+        <div class="container">
+          <div class="row gap-y align-items-center mb-90">
+            <div class="col-12 col-md-6 text-center hidden-sm-down">
+              <img src="{% static 'img/demo/slack/tools.png' %}" alt="...">
+            </div>
+
+            <div class="col-12 col-md-5 offset-md-1 text-center text-md-left">
+              <p class="fs-60 fw-900 opacity-10">01</p>
+              <h3 class="fw-300">CREAMOS EL ANUNCIO PERFECTO</h3>
+              <p>Nosotros nos ocupamos de todo: mandamos un fotógrafo profesional a tu casa, realizamos planos profesionales y editamos tu anuncio para que sea todavía mas atractivo.</p>
+            </div>
+          </div>
+
+          <div class="row gap-y align-items-center mb-90">
+            <div class="col-12 col-md-5 text-center text-md-left">
+              <p class="fs-60 fw-900 opacity-10">02</p>
+              <h3 class="fw-300">ANUNCIAMOS TU PROPIEDAD</h3>
+              <p>Publicaremos tu casa más de 50 portales inmobiliarios con visibilidad extra para que consigas incrementar el interés de potenciales compradores más rápidamente.</p>
+            </div>
+
+            <div class="col-12 col-md-6 offset-md-1 text-center hidden-sm-down">
+              <img src="{% static 'img/demo/slack/drag.png' %}" alt="...">
+            </div>
+          </div>
+
+          <div class="row gap-y align-items-center mb-90">
+            <div class="col-12 col-md-6 text-center hidden-sm-down">
+              <img src="{% static 'img/demo/slack/everywhere.png' %}" alt="...">
+            </div>
+
+            <div class="col-12 col-md-5 offset-md-1 text-center text-md-left">
+              <p class="fs-60 fw-900 opacity-10">03</p>
+              <h3 class="fw-300">DECIDE CUANDO QUIERES MOSTRAR TU PISO</h3>
+              <p>Con nuestra plataforma Mywasi endrás el 100% del control en todo momento: sólo recibirás solicitudes de visitas sólo cuando te vaya bien a ti.</p>
+            </div>
+          </div>
+
+          <div class="row gap-y align-items-center">
+            <div class="col-12 col-md-5 text-center text-md-left">
+              <p class="fs-60 fw-900 opacity-10">04</p>
+              <h3 class="fw-300">RECIBE OFERTAS Y VENDE TU CASA POR MAS</h3>
+              <p>Acepta, renegocia o rechaza las múltiples ofertas que recibas fácilmente desde nuestra plataforma. Sin presiones; cuando, como y por cuanto a ti te vaya bien.</p>
+            </div>
+
+            <div class="col-12 col-md-6 offset-md-1 text-center hidden-sm-down">
+              <img src="{% static 'img/demo/slack/cta.png' %}" alt="...">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | CTA Section
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | CTA 2
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+      <section class="section section-inverse py-40" style="background-color: #8ea6e6">
+        <div class="container">
+          <div class="row gap-y align-items-center text-center text-md-left">
+            <div class="col-12 col-md-9">
+              <h4 class="fw-300 mb-0">Quieres saber cuanto vale tu propiedad? Solicita la valoracion online gratis</h4>
+            </div>
+
+            <div class="col-12 col-md-3 text-center text-md-right">
+              <a class="btn btn-lg btn-round btn-white" href="#">VALORACION ONLINE GRATIS</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | Plataforma Personal Section
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | Feature 13- Plataforma Personal Section
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+      <section class="section">
+        <div class="container">
+          <header class="section-header">
+            <small>TU PLATAFORMA PERSONAL</small>
+            <h2>CONTROL ABSOLUTO A TRAVES DE TU PLATAFORMA PERSONAL</h2>
+            <hr>
+            <p class="lead">Todos los servicios para que controles el proceso de venta de tu propiedad de un modo mas eficiente y sencillo. Y sobretodo, para que tengas el 100% del control en todo momento.</p>
+          </header>
+
+          <div class="row gap-5">
+
+            <div class="col-12 col-md-4">
+              <ul class="nav nav-vertical">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#tab-1">
+                    <h6>CONTROL ABSOLUTO DE TU ANUNCIO</h6>
+                    <p>Edítalo tantas veces como quieras y nosotros nos ocuparemos de actualizarlo en más de 50 portales.</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#tab-2">
+                    <h6>CHATEA CON LOS POSIBLES COMPRADORES</h6>
+                    <p>Comunicate libremente con potenciales compradores en tiempo real y responde sus dudas facilmente.</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#tab-3">
+                    <h6>GESTIONA TUS VISITAS DESDE TU CALENDARIO</h6>
+                    <p>Controla en todo momento tu agenda de visitas gracias a nuestro calendario inteligente.</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#tab-4">
+                    <h6>RECIBE Y GESTIONA OFERTAS EN TIEMPO REAL</h6>
+                    <p>Acepta, rechaza o renegocia las ofertas que recibes de tus potenciales compradores.</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-12 col-md-8 align-self-center">
+              <div class="tab-content text-center">
+                <div class="tab-pane fade show active" id="tab-1">
+                  <img class="shadow-3" src="{% static 'img/header-color.jpg' %}" alt="...">
+                </div>
+
+                <div class="tab-pane fade" id="tab-2">
+                  <img class="shadow-3" src="{% static 'img/header-gradient.jpg' %}" alt="...">
+                </div>
+
+                <div class="tab-pane fade" id="tab-3">
+                  <img class="shadow-3" src="{% static 'img/header-image.jpg' %}" alt="...">
+                </div>
+
+                <div class="tab-pane fade" id="tab-4">
+                  <img class="shadow-3" src="{% static 'img/header-particle.jpg' %}" alt="...">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-50">
+            <a class="btn btn-lg btn-primary" href="page-feature.html">VENDE TU CASA POR MAS</a>
+          </div>
+        </div>
+      </section>
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | Beneficios Section
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+
+      <!-- Main container -->
+      <main class="main-content">
+        <!--
+        |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+        | Feature 1
+        |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+        !-->
+        <section class="section">
+          <div class="container">
+            <header class="section-header">
+              <small>Beneficios</small>
+              <h2>Más beneficios por menos</h2>
+              <hr>
+              <p class="lead">Mywasi te lo pone facil: todos los beneficios de las agencias inmobiliarias tradicionales más tecnologia puntera para que vendas tu piso por más.</p>
+            </header>
+            <div class="row gap-y">
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-dark"><i class="icon-mobile"></i></p>
+                <h5>Anuncios en Portales Inmobilarios</h5>
+                <p>Anunciaremos tu propiedad en más de 50 portales inmobiliarios tanto a nivel nacional como internacional para que lo vean todos los potenciales compradores del mercado.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-info"><i class="icon-gears"></i></p>
+                <h5>Fotografias y Plano Profesionales</h5>
+                <p>Nuestros fotografos realizaran fotos y planos profesionales de tu propiedad para que luzca mas en los portales inmobiliarios y se pueda vender mas rapidamente</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon"><i class="icon-tools"></i></p>
+                <h5>Descripción Profesional</h5>
+                <p>Nuestro equipo de marketing creará una descripción profesional de tu propiedad y de la zona en la que se encuentre para que sea más atractiva en los diferentes portales inmobiliarios.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-warning"><i class="icon-layers"></i></p>
+                <h5>Calendario</h5>
+                <p>Gestiona facilmente todas las visitas a tu propiedad desde tu calendario personal.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-danger"><i class="icon-recycle"></i></p>
+                <h5>Chat</h5>
+                <p>Chatea con los potenciales compradores de tu propiedad en cualquier momento y responde sus preguntas inmediatamente.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-success"><i class="icon-chat"></i></p>
+                <h5>Gestor de Ofertas</h5>
+                <p>Acepta, rechaza o renegocia las ofertas que recibes desde tu gestor de ofertas personal en tiempo real.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-warning"><i class="icon-layers"></i></p>
+                <h5>Valoraciones Online Ilimitadas</h5>
+                <p>Realiza cuantas valoraciones de tu propiedad desees. De ese modo, sabrás a que precio se venden propiedades similares a la tuya limitando las opciones de vender por debajo de su valor de mercado real.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-danger"><i class="icon-recycle"></i></p>
+                <h5>Certificado Energetico y Cedula de Habitabilidad</h5>
+                <p>Gestionamos la tramitación del certificado energetico y/o cedula de habitabilidad de tu propiedad en menos de 48 horas.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-success"><i class="icon-chat"></i></p>
+                <h5>Documentos Legales</h5>
+                <p>Gestionamos los documentos legales como la nota simple o el informe catastral por ti para que lo tengas todo a mano.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-warning"><i class="icon-layers"></i></p>
+                <h5>Accede desde cualquier lugar</h5>
+                <p>Tu Plataforma Personal es totalmente responsive lo que significa que puedes acceder a ella desde tu móvil cuando quieras y como quieras.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-danger"><i class="icon-recycle"></i></p>
+                <h5>Alertas Personalizadas por Email y SMS</h5>
+                <p>Te enviaremos notificaciones tanto a tu email como móvil en tiempo real para que te resulte más sencillo gestionar la venta de tu propiedad.</p>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-4 feature-1">
+                <p class="feature-icon text-success"><i class="icon-chat"></i></p>
+                <h5>Gestiona tu Anuncio</h5>
+                <p>Tu Plataforma Personal te permite ver tu anuncio antes de que se publique para que así puedas editar tantas veces como quieras cuando quieras.</p>
+              </div>
+
+              <div class="col-12 text-center">
+                <br><br>
+                <a class="btn btn-lg btn-primary" href="#">See more Features</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!--
+        |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+        | Footer 4
+        |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+        !-->
+        <footer class="site-footer py-90">
+          <div class="container">
+            <div class="row gap-y">
+              <div class="col-12 col-md-5">
+                <h6 class="heading-alt text-uppercase fs-14 mb-3">TheSaaS</h6>
+                <p class="fs-13">TheSaaS is a responsive, professional, and multipurpose SaaS, Software, Startup and WebApp landing template.</p>
+                <br>
+                <div class="social text-center">
+                  <a class="social-facebook" href="#"><i class="fa fa-facebook"></i></a>
+                  <a class="social-twitter" href="#"><i class="fa fa-twitter"></i></a>
+                  <a class="social-gplus" href="#"><i class="fa fa-google-plus"></i></a>
+                  <a class="social-instagram" href="#"><i class="fa fa-instagram"></i></a>
+                  <a class="social-linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+                </div>
+
+              </div>
+
+              <div class="col-12 col-md-2">
+                <h6 class="heading-alt text-uppercase fs-14 mb-3">Company</h6>
+                <div class="nav flex-column">
+                  <a class="nav-link" href="#">How It Works</a>
+                  <a class="nav-link" href="#">Pricing</a>
+                  <a class="nav-link" href="{% url 'blog' %}">Blog</a>
+                  <a class="nav-link" href="#">About</a>
+                  <a class="nav-link" href="#">Privacy Policy</a>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-5">
+                <h6 class="heading-alt text-uppercase fs-14 mb-3">Get Started</h6>
+                <p class="fs-13">TheSaaS design is harmonious, clean and user friendly. Even though the template has a lot of content</p>
+                <p>
+                  <a class="btn btn-sm btn-primary mr-10" href="page-demo.html">Take a test drive</a>
+                </p>
+                <br>
+                  <p class="text-light">Copyright © 2017 <a class="text-light" href="http://thetheme.io">TheThemeio</a>. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </footer>
+    <!-- END Footer -->
+
+    <!-- Email confirmation popup -->
+    {% block script %}
+    {% endblock %}
+
+    <!-- Scripts -->
+    <script src="{% static 'js/core.min.js' %}"></script>
+    <script src="{% static 'js/thesaas.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/rangeslider.js' %}"></script>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

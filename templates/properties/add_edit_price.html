@@ -1,0 +1,72 @@
+{% extends 'properties/property_form_base.html' %}
+{% load widget_tweaks %}
+
+{% block path %}
+  Mis Propiedades > Editar Anuncio > Precio de venta
+{% endblock %}
+
+{% block form %}
+  <div class="col-9">
+    <br>
+    <h7 class="text-uppercase">Precio De Venta</h7>
+    <br><br>
+    <form class="row gap-y" method="POST" enctype="multipart/form-data">{% csrf_token %}
+      <div class="col-6">
+        <div class="form-group">
+          <p class="form-label text-left">Precio de venta</p>
+          <p class="form-label text-left fs-10">Este es el precio que se mostrara en los mas de 50 portales inmobiliarios en los que se anunciara tu propiedad.</p>
+          {% render_field form.price class="form-control" %}
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <p class="form-label text-left"> </p>
+          <br>
+          <p class="form-label text-left fs-10">Si no tienes claro a que precio vender tu propiedad porque no utilizas nuestro servicio de valoracion online gratuito. Solo son 15 segundos!</p>
+            <button class="btn btn-bold btn-secondary-outline" type="submit">VALORACIÓN</button>
+        </div>
+      </div>
+
+      <div class="col-9"></div>
+      <div class="col-2">
+        <button class="btn btn-bold btn-primary" type="submit">Siguiente</button>
+      </div>
+    </form>
+
+    <hr>
+    <p><small>Última valoración:</small></p>
+    <h7 class="text-uppercase">Estimacion Economica</h7>
+    <p class="form-label text-left fs-10">El precio estimado del inmueble para la realizacion de operaciones de compra-venta es de XXXXXXEUR. El precio estimado para el inmueble en el mercado de alquiler es de XXXXEUR/MES. Esta estimacion no incluye el precio de anexos al inmueble como garajes o trasteros.</p>
+    <br>
+    <div class="col-6">
+      <p class="">Compra-venta</p>
+      <div class="row">
+        <div class="col-5 lp-50" style="background: #F5F7FA;">
+          <p>Minimo Estimado</p>
+          <p>xxxxxxxxx EUR</p>
+          <p>xxxxxx EUR/m2</p>
+        </div>
+        <div class="col-5" style="background: #F5F7FA;">
+          <p>Maximo Estimado</p>
+          <p>xxxxxxxxx EUR</p>
+          <p>xxxxxx EUR/m2</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <p class="">Alquiler</p>
+      <div class="row">
+        <div class="col-5" style="background: #F5F7FA;">
+          <p>Minimo Estimado</p>
+          <p>xxxxxxxxx EUR</p>
+          <p>xxxxxx EUR/m2</p>
+        </div>
+        <div class="col-5" style="background: #F5F7FA;">
+          <p>Maximo Estimado</p>
+          <p>xxxxxxxxx EUR</p>
+          <p>xxxxxx EUR/m2</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

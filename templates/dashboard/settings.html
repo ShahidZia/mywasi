@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block content %}
+  <h3>Ajustes</h3>
+  <div class="card box-typical-full-height">
+    <div class="card-block">
+
+      <form class="row gap-y" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <h5 class="col-12 col-md-12 col-lg-12">INFORMACION PERSONAL</h5>
+        <br><br>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ uform.first_name.label_tag }}</label>
+            {% render_field uform.first_name class="form-control" %}
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ uform.last_name.label_tag }}</label>
+            {% render_field uform.last_name class="form-control" %}
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ pform.dni.label_tag }}</label>
+            {% render_field pform.dni class="form-control" %}
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ pform.phone.label_tag }}</label>
+            {% render_field pform.phone class="form-control" %}
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ uform.email.label_tag }}</label>
+            {% render_field uform.email class="form-control" %}
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ pform.status.label_tag }}</label>
+            {% render_field pform.status class="form-control" %}
+          </div>
+        </div>
+        <div class="col-12 col-lg-12 col-lg-12">
+          <a class="btn btn-inline btn-secondary-outline pull-right" href="{% url 'password_change' %}">Cambiar contraseña</a>
+        </div>
+
+        <!-- Image field -->
+        <div class="col-12 col-md-12 col-lg-12">
+          <h5>FOTO PERFIL</h5>
+          <div>
+            {% if pform.instance.image %}
+              <img src="{{ pform.instance.image.url }}" class="rounded-circle" alt="profile_image" width="128px" height="auto">
+            {% else %}
+              <img src="{% static 'img/avatar/1.jpg' %}" class="img-circle profile_img" alt="default_profile_image" width="128px" height="auto">
+            {% endif %}
+          </div>
+          <br />
+          <label class="btn btn-inline btn-secondary-outline pl-50">
+            <input type="file" name="image" style="display: none;" onchange="showimagename(this.files)">
+            Cambiar foto
+          </label>
+
+          <p id="avatarImageName"></p>
+          <p>Archivo actual: {{ pform.instance.image.name }}</p>
+        </div>
+
+        <hr>
+        <h5 class="col-12 col-md-12 col-lg-12">INFORMACION FACTURACION (opcional)</h5>
+        <br>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ pform.company_name.label_tag }}</label>
+            {% render_field pform.company_name class="form-control" %}
+          </div>
+        </div>
+        <div class="col-6 col-md-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ pform.nif.label_tag }}</label>
+            {% render_field pform.nif class="form-control" %}
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ pform.billing_address.label_tag }}</label>
+            {% render_field pform.billing_address class="form-control" %}
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="form-label text-left m-0 fs-13">{{ pform.business_email.label_tag }}</label>
+            {% render_field pform.business_email class="form-control" %}
+          </div>
+        </div>
+        <div class="col-12 col-lg-12 col-lg-12">
+          <button class="btn btn-bold btn-primary" type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    function showimagename(files) {
+      document.getElementById("avatarImageName").innerHTML = "Nuevo archivo: " + files[0].name;
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "core/base_core.html" %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="mh-fullscreen pb-30" align="center" style="background: url({% static 'img/valuation_bg.png' %}); background-size:cover;">
+    <br>
+    <div>
+      <div class="row">
+        <div class="col-md-1">
+          <!-- <a href="{% url 'home' %}"><span class="font-icon glyphicon glyphicon-chevron-left"></span></a> -->
+        </div>
+      </div>
+      <div class="col-md-11">
+        <h4 class="text-white text-center">Nuestros precios</h5>
+      </div>
+    </div>
+    <br />
+    <div class="card card-shadowed pl-80 pr-80 pt-30 pb-20 w-500 mb-0" style="max-width: 100%" id="pricing">
+      <h2>Tarifa única</h2>
+      <h1>599 EUR</h1>
+
+      <h5>Bla Bla Bla</h5>
+      <h5>Bla Bla Bla</h5>
+      <h5>Bla Bla Bla</h5>
+      <h5>Bla Bla Bla</h5>
+      <h5>Bla Bla Bla</h5>
+      <h5>Bla Bla Bla</h5>
+      <button type="button" class="btn btn-primary">COMPRAR PAQUETE</button>
+    </div>
+  </div>
+{% endblock %}

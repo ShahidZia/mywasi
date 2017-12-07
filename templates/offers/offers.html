@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block content %}
+  {% if user.profile.status == "seller" %}
+    <h3>Ofertas</h3>
+  {% else %}
+    <h3>Ofertas<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalBuyerNewOffer">Nueva oferta</button></h3>
+  {% endif %}
+
+  <!-- If not offers show ilustration -->
+  <div class="card-block">
+    <div class="row">
+      <div class="col-1 text-center">
+        Nombre
+      </div>
+      <div class="col-3 text-center">
+        Direccion
+      </div>
+      <div class="col-1 text-center">
+        Precio
+      </div>
+      <div class="col-1 text-center">
+        Moneda
+      </div>
+      <div class="col-2 text-center">
+        Fecha
+      </div>
+      <div class="col-2 text-center">
+        Estado de la Oferta
+      </div>
+      <div class="col-2 text-center">
+        Acciones
+      </div>
+    </div>
+  </div>
+
+  {% if user.profile.status == "seller" %}
+    <!-- SELLER PART -->
+    {% for offer in offers %}
+    <div class="card card-block pt-20 pb-20">
+        <div class="row">
+          <div class="col-1 text-center">
+            {{ offer.buyer.first_name }} {{ offer.buyer.last_name }}
+          </div>
+          <div class="col-3 text-center">
+            {{ offer.prop.location }}, {{ offer.prop.number }}
+          </div>
+          <div class="col-1 text-center">
+            {{ offer.amount | intcomma }}
+          </div>
+          <div class="col-1 text-center">
+            EUR
+          </div>
+          <div class="col-2 text-center">
+            {{ offer.offer_date | date:"d N Y" }}
+          </div>
+          <div class="col-2 text-center">
+            {% if offer.status == 'pending' %}
+              <i class="fa fa-flag" aria-hidden="true" style="color: blue"></i> {{ offer.get_status_display }}
+            {% elif offer.status == 'refused' %}
+              <i class="fa fa-close" aria-hidden="true" style="color: red"></i> {{ offer.get_status_display }}
+            {% elif offer.status == 'canceled' %}
+              <i class="fa fa-close" aria-hidden="true" style="color: pink"></i> {{ offer.get_status_display }}
+            {% else %}
+              <i class="fa fa-check" aria-hidden="true" style="color: green"></i> {{ offer.get_status_display }}
+            {% endif %}
+          </div>
+          {% if offer.status == 'canceled' %}
+            <div class="col-1 text-center">
+              <a href="#" class="btn btn-success btn-sm disabled" role="button">Aceptar</a>
+            </div>
+            <div class="col-1 text-center">
+              <a href="#" class="btn btn-danger btn-sm disabled" role="button">Refusar</a>
+            </div>
+          {% else %}
+            <div class="col-1 text-center">
+              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalSellerAccept">Aceptar</button>
+            </div>
+            <div class="col-1 text-center">
+              <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalSellerCancel">Refusar</button>
+            </div>
+          {% endif %}
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  {% else %}
+    <!-- BUYER PART -->
+    <div class="card card-block pt-20 pb-20">
+      {% for offer in buyer_offers %}
+        <div class="row">
+          <div class="col-1 text-center">
+            {{ offer.buyer.first_name }} {{ offer.buyer.last_name }}
+          </div>
+          <div class="col-3 text-center">
+            {{ offer.prop.location }}, {{ offer.prop.number }}
+          </div>
+          <div class="col-1 text-center">
+            {{ offer.amount | intcomma }}
+          </div>
+          <div class="col-1 text-center">
+            EUR
+          </div>
+          <div class="col-2 text-center">
+            {{ offer.offer_date | date:"d N Y" }}
+          </div>
+          <div class="col-2 text-center">
+            {% if offer.status == 'pending' %}
+              <i class="fa fa-flag" aria-hidden="true" style="color: blue"></i> {{ offer.get_status_display }}
+            {% elif offer.status == 'refused' %}
+              <i class="fa fa-close" aria-hidden="true" style="color: red"></i> {{ offer.get_status_display }}
+            {% elif offer.status == 'canceled' %}
+              <i class="fa fa-close" aria-hidden="true" style="color: pink"></i> {{ offer.get_status_display }}
+            {% else %}
+              <i class="fa fa-check" aria-hidden="true" style="color: green"></i> {{ offer.get_status_display }}
+            {% endif %}
+          </div>
+          <div class="col-2 text-center">
+            {% if offer.status == 'refused' %}
+              <a href="#" class="btn btn-success btn-sm" role="button">Ver mensaje</a>
+            {% elif offer.status == 'canceled' %}
+              <a href="#" class="btn btn-outline-danger btn-sm disabled" role="button">Cancelar</a>
+            {% else %}
+              <a href="#" class="btn btn-inline btn-danger-outline btn-sm" role="button">Cancelar</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Paginator -->
+  <div class="row">
+    <nav>
+      {% if offers.has_other_pages %}
+        <ul class="pagination">
+          {% if offers.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ offers.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><a class="page-link"><span>&laquo;</span></a></li>
+          {% endif %}
+          {% for i in offers.paginator.page_range %}
+            {% if offers.number == i %}
+              <li class="page-item"><a class="page-link"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}"> {{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if offers.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ offers.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><a class="page-link"><span>&raquo;</span></a></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </nav>
+  </div>
+
+  <!-- Popups section -->
+  {% include 'offers/accept_offer.html' %}
+  {% include 'offers/accept_offer_success.html' %}
+  {% include 'offers/make_offer_form.html' %}
+  {% include 'offers/refuse_offer_form.html' %}
+  {% include 'offers/refuse_offer_success.html' %}
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'accounts/accounts_base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Mywasi - Register</title>
+{% endblock %}
+
+{% block content %}
+<dir class="row no-gap" style="background-color: #fff;">
+  <div class="col-12 col-md-12 mh-fullscreen bg-img center-vh" align="center"  >
+    <div class="card card-shadowed" style="width: 80%">
+      <dir class="row no-gap m-0">
+        <div class="col-12 col-md-5 p-50" align="center" style="background-color: #fafbfc;" >
+          <h4 class="text-uppercase text-left">Bienvenido a MyWasify!</h4>
+          <h6 class="text-left">Resumen de los servicios contratados:</h6>
+          <br>
+          <div class="row card card-shadowed" style="background-color: #fff, width: 100%;">
+            <div class="col-4">
+              <h6 class="fs-50 mt-10"><i class="fa fa-diamond" aria-hidden="true"></i></h6>
+            </div>
+            <div class="col-8">
+                <h6>Paquete unico</h6>
+                <p>Blabalabala</p>
+                <p>Blabalabala</p>
+                <p>Blabalabala</p>
+                <p>...</p>
+                <p>€499</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-6 text-left">
+              <b>Total:</b>
+            </div>
+            <div class="col-6 text-rigth">
+              <b>€499</b>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-7 p-60">
+          <form class="form-type-material" method="POST">{% csrf_token %}
+            <h5 class="text-uppercase text-left uppercase">Proceso de pago</h5>
+            <h6 class="text-left">1. Datos Personales</h6>
+              {% if user.is_authenticated %}
+              <br>
+              <div class="row">
+                <div class="col-6 text-left">
+                  <b>Registrado como: </b>{{ user.first_name }} {{ user.last_name }}
+                </div>
+                <div class="col-6 text-rigth">
+                  <button type="button" class="btn btn-inline btn-primary-outline"><a href="{% url 'logout' %}">Cambiar de usuario</a></button>
+                </div>
+              </div>
+              <br>
+              {% else %}
+              <div class="row">
+              {% include 'includes/form_payment.html' %}
+              </div>
+              {% endif %}
+            <h6 class="text-left">2. Datos del pago  <i class="fa fa-lock" aria-hidden="true" style="color: black"></i></h6>
+            <div class="row">
+              <div class="col-12 form-group">
+                <p class="text-left m-0 fs-13"><label for="id_name">Nombre en la tarjeta:</label></p>
+                <input type="text" name="name" id="id_name" required="" class="form-control" maxlength="30">
+              </div>
+              <div class="col-8 form-group">
+                <p class="text-left m-0 fs-13"><label for="id_name">Numero de la tarjeta:</label></p>
+                <input type="text" name="name" id="id_name" required="" class="form-control" maxlength="30">
+              </div>
+              <div class="col-4 text-left fs-25">
+                <p class="text-left m-0 fs-16"><label for="id_name"></label></p>
+                  <i class="fa fa-cc-visa" aria-hidden="true" style="color: black"></i>
+                  <i class="fa fa-cc-mastercard" aria-hidden="true" style="color: black"></i>
+                  <i class="fa fa-cc-amex" aria-hidden="true" style="color: black"></i>
+                  <i class="fa fa-cc-stripe" aria-hidden="true" style="color: black"></i>
+              </div>
+              <div class="col-6 form-group">
+                <p class="text-left m-0 fs-13"><label for="id_name">Caducidad:</label></p>
+                <input type="text" name="name" id="id_name" required="" class="form-control" maxlength="30">
+              </div>
+              <div class="col-6 form-group">
+                <p class="text-left m-0 fs-13"><label for="id_name">CVV:</label></p>
+                <input type="text" name="name" id="id_name" required="" class="form-control" maxlength="30">
+              </div>
+            </div>
+
+            <button class="btn btn-bold btn-primary text-uppercase" style="float: center" type="submit">Contratar Servicios</button>
+          </form>
+
+          <p class="custom-control-description text-center mt-10 fs-8">Haciendo click en el botón acepta nuestros <a class="text-primary" href="#">Terminos y Política de privacidad</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</dir>
+{% endblock %}

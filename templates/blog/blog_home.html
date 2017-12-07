@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blog home</title>
+  </head>
+  <body>
+    <h1>Mywasi blog</h1>
+    {% for post in posts %}
+      <div>
+        <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        <p>published: {{ post.published_date }}</p>
+        <p>{{ post.text | linebreaksbr }}</p>
+      </div>
+    {% endfor %}
+  </body>
+</html>

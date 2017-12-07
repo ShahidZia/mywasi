@@ -1,0 +1,38 @@
+.mon, .tue, .wed, .thu, .fri, .sat, .sun {
+  text-align: center;
+}
+
+.day {
+  vertical-align: text-top;
+  text-align: right;
+  padding: 5px;
+}
+
+.day ul {
+  text-align: left;
+  color: #2a8bf2;
+  border-left: 2px #2a8bf2 solid;
+  background-color: #e3f0fd;
+}
+
+.day ul a {
+  padding-left: 2px;
+}
+
+.today {
+  font-weight: bold;
+  vertical-align: text-top;
+  text-align: right;
+  padding: 5px;
+}
+
+.today ul {
+  text-align: left;
+  color: #2a8bf2;
+  border-left: 2px #2a8bf2 solid;
+  background-color: #e3f0fd;
+}
+
+.today ul a {
+  padding-left: 2px;
+}

@@ -1,0 +1,37 @@
+{% extends 'blog/blog_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="container">
+    <div class="page-header">
+      <h2>Gestor de comentarios</h2>
+    </div>
+    <h2>Comentarios publicados</h2>
+    <div clas="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Post</th>
+              <th>Autor</th>
+              <th>Texto</th>
+              <th>Fecha creación</th>
+              <th class="text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for comment in comments %}
+              <tr>
+                <td><a href="{% url 'post_detail' pk=comment.post.pk %}">{{ comment.post.title | truncatechars:20 }}</a></td>
+                <td>{{ comment.author }}</td>
+                <td>{{ comment.text }}</td>
+                <td>{{ comment.created_date }}</td>
+                <td class="text-center"><a class="text-danger" href="{% url 'comment_delete' pk=comment.pk %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load widget_tweaks %}
+
+{% if form.non_field_errors %}
+  <div class="alert alert-danger text-left" role="alert">
+      <p class="mb-0">Por favor, introduzca un correo electrónico y clave correctos.</p>
+  </div>
+{% endif %}
+
+{% for field in form %}
+  <div class="form-group">
+    {% if form.username.label_tag == field.label_tag %}
+      <p class="text-left m-0 fs-13">
+        <label for="id_username">Correo electrónico:</label>
+      </p>
+    {% else %}
+      <p class="text-left m-0 fs-13">{{ field.label_tag }}</p>
+    {% endif %}
+
+    {% render_field field class="form-control" %}
+
+    {% if field.errors %}
+      {% for error in field.errors %}
+        <p class="text-danger text-left">
+          {{ error }}
+        </p>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endfor %}

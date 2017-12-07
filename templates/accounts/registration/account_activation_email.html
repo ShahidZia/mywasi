@@ -1,0 +1,11 @@
+{% autoescape off %}
+Hola {{ user.first_name }} {{ user.last_name }},
+
+Por favor, haga click en el siguiente enlace para activar su cuenta:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+Un saludo,
+
+Mywasi team
+{% endautoescape %}

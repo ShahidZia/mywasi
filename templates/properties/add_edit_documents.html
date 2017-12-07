@@ -1,0 +1,118 @@
+{% extends 'properties/property_form_base.html' %}
+{% load widget_tweaks %}
+
+{% block path %}
+  Mis Propiedades > Editar Anuncio > Documentos
+{% endblock %}
+
+{% block form %}
+  <div class="col-9">
+    <br>
+    <h7 class="text-uppercase">DOCUMENTOS DE LA PROPIEDAD</h7>
+    <br><br>
+    <form class="row gap-y" method="POST" enctype="multipart/form-data">{% csrf_token %}
+      <div class="col-12">
+        <div class="form-group">
+          <p class="form-label text-left">Plano de la Propiedad</p>
+          <p class="form-label text-left fs-10">Añade el plano de tu propiedad. Si no tienes, puedes obtenerlo a un precio especial aquí.</p>
+        </div>
+        <div class="col-12 drop-zone dragover">
+            <i class="font-icon font-icon-cloud-upload-2"></i>
+            <div class="drop-zone-caption">Drag file to upload</div>
+            <span class="btn btn-rounded btn-file">
+                <span>Choose file</span>
+                <input type="file" name="plane" onchange="showfilename(this.files)" multiple>
+            </span>
+        </div>
+      </div>
+      <br />
+      <div id="planeNameList"></div>
+      <div>
+        {% for doc in document_list %}
+          {% if doc.name == 'plane' %}
+            <p>Archivo actual: {{ doc.document.name }}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <p class="form-label text-left">Certificado Energético</p>
+          <p class="form-label text-left fs-10">Edita o incluye mas fotos a tu antojo. Es muy simple!</p>
+        </div>
+        <div class="col-12 drop-zone dragover">
+            <i class="font-icon font-icon-cloud-upload-2"></i>
+            <div class="drop-zone-caption">Drag file to upload</div>
+            <span class="btn btn-rounded btn-file">
+                <span>Choose file</span>
+                <input type="file" name="energetic_certificate" onchange="showecname(this.files)">
+            </span>
+        </div>
+      </div>
+      <br />
+      <div id="ecNameList"></div>
+      <div>
+        {% for doc in document_list %}
+          {% if doc.name == 'energetic_certificate' %}
+            <p>Archivo actual: {{ doc.document.name }}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <p class="form-label text-left">Cédula de habitabilidad</p>
+          <p class="form-label text-left fs-10">Edita o incluye mas fotos a tu antojo. Es muy simple!</p>
+        </div>
+        <div class="col-12 drop-zone dragover">
+            <i class="font-icon font-icon-cloud-upload-2"></i>
+            <div class="drop-zone-caption">Drag file to upload</div>
+            <span class="btn btn-rounded btn-file">
+                <span>Choose file</span>
+                <input type="file" name="certificate_of_occupancy" onchange="showcooname(this.files)">
+            </span>
+        </div>
+      </div>
+      <br />
+      <div id="cooNameList"></div>
+      <div>
+        {% for doc in document_list %}
+          {% if doc.name == 'certificate_of_occupancy' %}
+            <p>Archivo actual: {{ doc.document.name }}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="col-9"></div>
+      <div class="col-2">
+        <button class="btn btn-bold btn-primary" type="submit">Siguiente</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    function showfilename(files) {
+      for (var i = 0; i < files.length; i++) {
+        $("#planeNameList").append("Nuevo archivo: " + files[i].name + "<br />");
+      }
+    }
+  </script>
+
+  <script>
+    function showecname(files) {
+      for (var i = 0; i < files.length; i++) {
+        $("#ecNameList").append("Nuevo archivo: " + files[i].name + "<br />");
+      }
+    }
+  </script>
+
+  <script>
+    function showcooname(files) {
+      for (var i = 0; i < files.length; i++) {
+        $("#cooNameList").append("Nuevo archivo: " + files[i].name + "<br />");
+      }
+    }
+  </script>
+{% endblock %}

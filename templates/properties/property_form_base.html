@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <h3 class="with-border">Nueva Propiedad</h3>
+  <div class="card container">
+    <div class="row">
+      <div class="col-3 pr-0 pl-0" style="background-color: #F5F7FA">
+        <br>
+        <h4 class="text-center pl-30 pt-50">Pasos a completar</h4>
+        <ul class="side-menu-list2">
+          <li class="{% if request.resolver_match.url_name == "add_property_location" or request.resolver_match.url_name == "edit_property_location" %}opened{% else %}grey{% endif %}">
+            <a href="#">
+              <span class="lbl">Ubicación</span>
+            </a>
+          <li class="{% if request.resolver_match.url_name == "add_property_description" or request.resolver_match.url_name == "edit_property_description" %}opened{% else %}grey{% endif %}">
+            <a href="#">
+              <span class="lbl">Descripción</span>
+            </a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == "add_property_price" or request.resolver_match.url_name == "edit_property_price" %}opened{% else %}grey{% endif %}">
+            <a href="#">
+              <span class="lbl">Precio de Venta</span>
+            </a>
+          </li>
+          {% if request.resolver_match.url_name == "edit_property_images" %}
+            <li class="{% if request.resolver_match.url_name == "edit_property_images" %}opened{% else %}grey{% endif %}">
+              <a href="#">
+                <span class="lbl">Fotografías y Planos</span>
+              </a>
+            </li>
+          {% endif %}
+          {% if request.resolver_match.url_name == "edit_property_documents" %}
+            <li class="{% if request.resolver_match.url_name == "edit_property_documents" %}opened{% else %}grey{% endif %}">
+              <a href="#">
+                <span class="lbl">Documentos</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div><!--.side-menu-->
+      {% block form %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}

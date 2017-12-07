@@ -1,0 +1,49 @@
+{% extends 'properties/property_form_base.html' %}
+{% load widget_tweaks %}
+
+{% block path %}
+  Mis Propiedades > Editar Anuncio > Fotografías y planos
+{% endblock %}
+
+{% block form %}
+  <div class="col-9">
+    <br>
+    <h7 class="text-uppercase">Fotografias y Planos</h7>
+    <br><br>
+    <form class="row gap-y" method="POST" enctype="multipart/form-data">{% csrf_token %}
+      <div class="col-12">
+        <div class="form-group">
+          <p class="form-label text-left">Fotografias de tu Propiedad</p>
+          <p class="form-label text-left fs-10">Edita o incluye mas fotos a tu antojo. Es muy simple!</p>
+        </div>
+        {% for photo in photo_list %}
+          <img src="{{ photo.image.url }}" alt="image" width="128px" height="auto">
+        {% endfor %}
+        <div class="col-12 drop-zone dragover">
+            <i class="font-icon font-icon-cloud-upload-2"></i>
+            <div class="drop-zone-caption">Drag file to upload</div>
+            <span class="btn btn-rounded btn-file">
+                <span>Choose file</span>
+                <input type="file" name="image" onchange="showimagename(this.files)" multiple>
+            </span>
+        </div>
+        <br />
+        <div id="imageNameList"></div>
+      </div>
+      <!-- <div class="col-9"></div> -->
+      <div class="col-12">
+        <button class="btn btn-bold btn-primary pull-right" type="submit">Siguiente</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    function showimagename(files) {
+      for (var i = 0; i < files.length; i++) {
+        $("#imageNameList").append("Nuevo archivo: " + files[i].name + "<br />");
+      }
+    }
+  </script>
+{% endblock %}

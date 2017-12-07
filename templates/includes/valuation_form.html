@@ -1,0 +1,33 @@
+{% load widget_tweaks %}
+
+{% if form.errors %}
+  {% for field in form %}
+    {% for error in field.errors %}
+      <div class="col-12 col-md-12 col-lg-12 text-left text-danger">
+        {{ error }}
+      </div>
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+
+{% for field in form %}
+  {% if field.name == 'user_name' or field.name == 'phone' or field.name == 'email' or field.name == 'password1' %}
+    <div class="col-12 col-md-6 col-lg-3">
+      <p class="text-left m-0 fs-13">{{ field.label_tag }}</p>
+      {% render_field field class="form-control" %}
+    </div>
+
+  {% elif field.name == 'location' %}
+  <div class="col-12 col-md-6 col-lg-12">
+    <p class="text-left m-0 fs-13">{{ field.label_tag }}</p>
+    {% render_field field class="form-control" %}
+  </div>
+
+  {% else %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <p class="text-left m-0 fs-13">{{ field.label_tag }}</p>
+      {% render_field field class="form-control" %}
+    </div>
+  {% endif %}
+{% endfor %}

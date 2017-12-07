@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block path %}
+  Mis Propiedades
+{% endblock %}
+
+{% block content %}
+  <h3>Mis propiedades <a href="{% url 'add_property_location' %}" class="btn btn-primary pull-right">Añadir</a></h3>
+  <div class="row">
+    {% for property in properties %}
+      <div class="col-lg-4">
+        <section class="card card-shadowed">
+          <article class="gallery-item">
+            <div class="ribbon-block">
+              <div class="ribbon right-top">
+                <!-- <div class="ribbon red right-top">
+                            <i class="fa fa-heart"></i>
+                        </div>
+                -->
+                <span>Status</span>
+              </div>
+              {% if property.image %}
+                <img class="gallery-picture" src="{{ property.image.url }}" alt="" width="100%">
+              {% else %}
+                <img class="gallery-picture" src="{% static 'img/gall-img-4.jpg' %}" alt="" width="100%">
+              {% endif %}
+            </div>
+
+            <div class="card-block-properties">
+              <h4 class="card-title">{{ property.location }}, {{ property.number }}</h4>
+              <p class="card-text fs-14" style="height:60px;">{{ property.description | truncatechars:120 }}</p>
+              <div class="row" style="height:30px;">
+                <div class="col-4 pr-5 fs-12"><i class="fa fa-map-marker" style="width:15px;"></i>{{ property.location | truncatechars:18 }}</div><!--City-->
+                <div class="col-4 pr-5 fs-12"><i class="fa fa-home"></i>&nbsp {{ property.get_prop_type_display }}</div>
+                <div class="col-4 pr-5 fs-12"><i class="fa fa-crop"></i>&nbsp {{ property.sqm }} m<sup>2</sup></div>
+              </div>
+              <div class="row" style="height:30px;">
+                <div class="col-4 pr-5 fs-12"><i class="fa fa-eur"></i>&nbsp {{ property.price }}</div>
+                <div class="col-4 pr-5 fs-12"><i class="fa fa-bed"></i>&nbsp {{ property.num_bedrooms }}</div>
+                <div class="col-4 pr-5 fs-12"><i class="fa fa-bathtub"></i>&nbsp {{ property.num_bathrooms }}</div>
+              </div>
+              <div class="row" style="height:30px;">
+                <div class="col-4 pr-5 fs-12"><i class="fa fa-car"></i>&nbsp {{ property.garage }}</div>
+                <div class="col-4 pr-5 fs-12"><i class="fa fa-object-group"></i>&nbsp <!--Has Map?--></div>
+                <div class="col-4 pr-5 fs-12"><i class="fa fa-camera"></i>&nbsp <!--Has photography?--></div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6 text-right">
+                  <a href="{% url 'property_detail' pk=property.pk %}" class="btn btn-inline btn-secondary-outline" style="width:120px;">Ver</a>
+                </div>
+                <div class="col-6 text-left">
+                  <a href="{% url 'edit_property_location' pk=property.pk %}" class="btn btn-primary" style="width:120px;">Editar</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    {% endfor %}
+
+    {% for no_property in no_properties %}
+      <div class="col-lg-4">
+        <section class="card bright">
+          <img src="{% static '/img/property_placeholder.png' %}" />
+        </section>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

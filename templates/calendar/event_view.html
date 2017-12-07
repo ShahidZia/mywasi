@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <h3 class="with-border">Calendario</h3>
+  <div class="card box-typical-full-height">
+    <div class="card-block">
+      Cita con {{ event.buyer.first_name }} {{ event.buyer.last_name }} el dia
+      {{ event.day }} para enseñar la propiedad {{ event.prop.location }}, {{ event.prop.number }}
+      <hr />
+      <a href="{% url 'event_edit' pk=event.pk %}" class="btn btn-default">Edit</a>
+    </div>
+  </div>
+{% endblock %}

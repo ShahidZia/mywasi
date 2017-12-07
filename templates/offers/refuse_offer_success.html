@@ -1,0 +1,27 @@
+{% load staticfiles %}
+
+<!-- Modal Seller Feedback-->
+<div class="modal fade" id="modalSellerAcceptFeedback" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3 class="text-center">Hemos comunicado que has rechazado la oferta</h3>
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-12">
+            No pasa nada. Lo normal es que el mismo comprador reconsidere su oferta en los próximos dias y te haga otra oferta. Por otra parte, aún hay muchísimos potenciales compradores que pueden realizar una oferta por tu propiedad en cualquier momento. Así que nosotros seguimos buscándote opciones de venta!
+            <div class="col-12 col-md-12 col-lg-12 text-center mt-40">
+              <img width="300px" src="{% static 'img/faq-2.png' %}" align="center">
+            </div>
+          </div>
+          <div class="col-12 col-md-12 col-lg-12 text-center mt-80">
+            <button class="btn btn-bold btn-primary" align="center" href="{% url 'list_offers' %}">VOLVER</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Seller Congrats-->

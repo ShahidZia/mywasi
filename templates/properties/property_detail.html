@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block path %}
+Mis Propiedades > Ver Detalles
+{% endblock %}
+
+{% block content %}
+  <h3 class="with-border">Mi propiedad</h3>
+  <br>
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <div class="steps-icon-progress">
+				<ul style="margin-left: -56px; margin-right: -56px;">
+					<li class="active">
+						<div class="icon">
+							<i class="font-icon font-icon-card"></i>
+						</div>
+						<div class="caption">Sign up Completo</div>
+					</li>
+					<li class="active">
+						<div class="icon">
+							<i class="fa fa-camera"></i>
+						</div>
+						<div class="caption">Fotografiasy planos</div>
+					</li>
+					<li>
+						<div class="icon">
+							<i class="font-icon font-icon-card"></i>
+						</div>
+						<div class="caption">Revisar anuncio</div>
+					</li>
+					<li>
+						<div class="icon">
+							<i class="font-icon font-icon-check-bird"></i>
+						</div>
+						<div class="caption">Publicar anuncio</div>
+					</li>
+				</ul>
+			</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <section class="card">
+        <div class="card-block">
+          <h6 class="card-title">TU PERFIL:</h6>
+          <div class="row">
+            <div class="col-2">
+              <div class="icon">
+							  <i class="font-icon font-icon-weather-clouds"></i>
+						  </div>
+            </div>
+          <div class="col-10">
+            <p class="">Once you’ve reviewed your add, you’ll need to publish it to more than 100 portals</p>
+          </div>
+          <div class="offset-3">
+            <a href="#" class="btn btn-default">Ver Pack</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-4">
+      <section class="card">
+        <div class="card-block">
+          <h6 class="card-title">TU PERFIL:</h6>
+          <div class="row">
+            <div class="col-2">
+              <div class="icon">
+                <i class="font-icon font-icon-weather-clouds"></i>
+              </div>
+            </div>
+          <div class="col-10">
+            <p class="">Once you’ve reviewed your add, you’ll need to publish it to more than 100 portals</p>
+          </div>
+          <div class="offset-3">
+            <a href="#" class="btn btn-default">Ver Pack</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-4">
+      <section class="card">
+        <div class="card-block">
+          <h6 class="card-title">TU PERFIL:</h6>
+          <div class="row">
+            <div class="col-2">
+              <div class="icon">
+                <i class="font-icon font-icon-weather-clouds"></i>
+              </div>
+            </div>
+          <div class="col-10">
+            <p class="">Once you’ve reviewed your add, you’ll need to publish it to more than 100 portals</p>
+          </div>
+          <div class="offset-3">
+            <a href="#" class="btn btn-default">Ver Pack</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <br><br>
+
+  <div class="row col-12 card">
+    <div class="card-block">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="card-title">{{ property.location }}, {{ property.number }}</h3>
+        </div>
+        <div class="col-2">
+          <a href="{% url 'edit_property_location' pk=property.pk %}" class="btn btn-primary">Editar</a>
+        </div>
+    </div>
+    <hr>
+    <h5 class="card-title text-uppercase">Precio y Valoracion</h5>
+    <div class="row">
+      <div class="col-6">
+        <br>
+        <div class="row">
+          <div class="col-6">
+            <div class="col-10" style="background: #F5F7FA;">
+              <p>Minimo Estimado</p>
+              <p>xxxxxxxxx EUR</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="col-10" style="background: #F5F7FA;">
+              <p>Minimo Estimado</p>
+              <p>xxxxxxxxx EUR</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="col-10" style="background: #F5F7FA;">
+              <p>Minimo Estimado</p>
+              <p>xxxxxxxxx EUR</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="col-10" style="background: #F5F7FA;">
+              <p>Minimo Estimado</p>
+              <p>xxxxxxxxx EUR</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <h6 class="card-title text-uppercase">Valoraciones Ilimitadas Gratis</h6>
+        <p>Si tienes dudas de que a que precio deberias vender tu propiedad, por qué no utilizas el servicio de valoración de la propiedad gratuito dentro de tu paquete. Te llevará menos de 15 segundos ver los resultados!</p>
+        <button class="btn btn-bold btn-secondary-outline" type="submit">VALORACIÓN</button>
+      </div>
+    </div>
+    <hr>
+    <h5 class="card-title text-uppercase">Descripcion</h5>
+    <div class="row col-12">
+      <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your ohsdjhashdjaskdahsd jahsdkahskdjha asjdhfff is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your ohsdjhashdjaskdahsd jahsdkahskdjha asjdhfff is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your ohsdjhashdjaskdahsd jahsdkahskdjha asjdhfff is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your ohsdjhashdjaskdahsd jahsdkahskdjha asjdhfff is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your ohsdjhashdjaskdahsd jahsdkahskdjha asjdhfff.
+      </p>
+    </div>
+    <hr>
+    <h5 class="card-title text-uppercase">Detalles</h5>
+    <div class="row col-12">
+      <div class="col-4">
+        <p><i class="fa fa-map-marker" aria-hidden="true"></i>Location: Barcelona</p>
+      </div>
+      <div class="col-4">
+        <p><i class="fa fa-home" aria-hidden="true"></i>Tipo de propiedad: Piso</p>
+      </div>
+      <div class="col-4">
+        <p><i class="fa fa-address-card-o" aria-hidden="true"></i>Inmueble: Planta Baja</p>
+      </div>
+    </div>
+    <div class="row col-12">
+      <div class="col-3">
+        <p><i class="fa fa-bed" aria-hidden="true"></i>Habitaciones: 3</p>
+      </div>
+      <div class="col-3">
+        <p><i class="fa fa-television" aria-hidden="true"></i>Salones: 1</p>
+      </div>
+      <div class="col-3">
+        <p><i class="fa fa-bath" aria-hidden="true"></i>Baños: 2</p>
+      </div>
+      <div class="col-3">
+        <p><i class="fa fa-caro" aria-hidden="true"></i>Plazas de parking: 1</p>
+      </div>
+    </div>
+    <div class="row col-12">
+      <div class="col-3">
+        <p><i class="fa fa-bed" aria-hidden="true"></i>Habitaciones: 3</p>
+      </div>
+      <div class="col-3">
+        <p><i class="fa fa-television" aria-hidden="true"></i>Salones: 1</p>
+      </div>
+      <div class="col-3">
+        <p><i class="fa fa-bath" aria-hidden="true"></i>Baños: 2</p>
+      </div>
+      <div class="col-3">
+        <p><i class="fa fa-caro" aria-hidden="true"></i>Plazas de parking: 1</p>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators  FOR IMAGE IN DB-->
+    <ul class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#myCarousel" data-slide-to="3"></li>
+      <li data-target="#myCarousel" data-slide-to="4"></li>
+    </ul>
+
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'img/housesample0.jpg' %}" alt="SohoHouse" style="width:100%;">
+      </div>
+
+      <div class="carousel-item">
+        <img src="{% static 'img/housesample1.jpg' %}" alt="SohoHouse" style="width:100%;">
+      </div>
+
+      <div class="carousel-item">
+        <img src="{% static 'img/housesample2.jpg' %}" alt="SohoHouse" style="width:100%;">
+      </div>
+
+      <div class="carousel-item">
+        <img src="{% static 'img/housesample3.jpg' %}" alt="SohoHouse" style="width:100%;">
+      </div>
+
+      <div class="carousel-item">
+        <img src="{% static 'img/housesample4.jpg' %}" alt="SohoHouse" style="width:100%;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+
+
+
+  </div>
+  <hr>
+  <div class="row">
+    <h5>Tour Virtual</h5>
+    <div class="col-12">
+      <iframe width='100%' height='720' src='https://roundme.com/embed/131253/331935' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+  </div>
+
+
+{% endblock %}
