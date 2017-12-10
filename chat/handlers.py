@@ -134,13 +134,14 @@ def check_unread_handler(stream):
 
                 if dialogs.exists():
                     dialog = dialogs.last()
+                    
+                    opponent = dialog.opponent
 
-                    if models.Message.objects.filter(dialog=dialog, read=False).exists():
-                        opponent = dialog.opponent
-
-                        if opponent == user_owner:
-                            opponent = dialog.owner
-
+                    if opponent == user_owner:
+                        opponent = dialog.owner
+                    
+                    if models.Message.objects.filter(dialog=dialog, read=False, sender=opponent).exists():
+                        
                         socket = ws_connections.get((user_owner.username, ''))
 
                         if socket:
