@@ -1,10 +1,16 @@
 import asyncio
 import json
 import logging
+
+import datetime
 import websockets
 from django.contrib.auth import get_user_model
+from django.db.models import Q
+
+from accounts.models import Profile
 from . import models, router
 from .utils import get_user_from_session, get_dialogs_with_user
+from django.template.loader import render_to_string
 
 logger = logging.getLogger('django-private-dialog')
 ws_connections = {}
@@ -114,6 +120,48 @@ def gone_offline(stream):
 
 
 @asyncio.coroutine
+def check_unread_handler(stream):
+    """
+    Distributes the users online status to everyone he has dialog with
+    """
+    while True:
+        packet = yield from stream.get()
+        session_id = packet.get('session_key')
+        if session_id:
+            user_owner = get_user_from_session(session_id)
+            if user_owner:
+                dialogs = models.Dialog.objects.filter(Q(opponent=user_owner) | Q(owner=user_owner)).order_by('modified')
+
+                if dialogs.exists():
+                    dialog = dialogs.last()
+
+                    if models.Message.objects.filter(dialog=dialog, read=False).exists():
+                        opponent = dialog.opponent
+
+                        if opponent == user_owner:
+                            opponent = dialog.owner
+
+                        socket = ws_connections.get((user_owner.username, ''))
+
+                        if socket:
+                            yield from target_message(socket,
+                                              {'type': 'check_unread',
+                                               'message_id': opponent.id
+                                               })
+                        else:
+                            pass
+                    else:
+                        pass
+
+                else:
+                    pass
+            else:
+                pass  # invalid session id
+        else:
+            pass  # no session id
+
+
+@asyncio.coroutine
 def new_messages_handler(stream):
     """
     Saves a new chat message to db and distributes msg to connected users
@@ -137,12 +185,36 @@ def new_messages_handler(stream):
                         text=packet['message'],
                         read=False
                     )
+
+                    dialog[0].modified = datetime.datetime.now()
+                    dialog[0].save()
+
+                    profile_opponent = Profile.objects.get(user_id=msg.sender.id)
+
+                    image_opponent = None
+
+                    if profile_opponent.image:
+                        image_opponent = profile_opponent.image.url
+
+                    context = {'msg': msg, 'image_opponent': image_opponent}
+
+                    senderContext = {'id': msg.sender.id, 'userId': msg.sender.username.split('@')[0].replace('.', ''), 'name': msg.sender.first_name, 'image': image_opponent, 'last': msg, 'unread': 1}
+                    newSender = render_to_string('django_private_chat/partials/conversation.html', senderContext)
+
+                    myMessage = render_to_string('django_private_chat/partials/myMessage.html', context)
+                    newMessage = render_to_string('django_private_chat/partials/newMessage.html', context)
+
                     packet['created'] = msg.get_formatted_create_datetime()
                     packet['sender_name'] = msg.sender.username
+                    packet['sender_id'] = msg.sender.id
                     packet['message_id'] = msg.id
+                    packet['myMessage'] = myMessage
+                    packet['newMessage'] = newMessage
+                    packet['newSender'] = newSender
 
                     # Send the message
                     connections = []
+
                     # Find socket of the user which sent the message
                     if (user_owner.username, user_opponent.username) in ws_connections:
                         connections.append(ws_connections[(user_owner.username, user_opponent.username)])
@@ -156,6 +228,7 @@ def new_messages_handler(stream):
                         connections.extend(opponent_connections_sockets)
 
                     yield from fanout_message(connections, packet)
+
                 else:
                     pass  # no dialog found
             else:
@@ -183,12 +256,12 @@ def users_changed_handler(stream):
             'type': 'users-changed',
             'value': sorted(users, key=lambda i: i['username'])
         }
-        logger.debug(packet)
         yield from fanout_message(ws_connections.keys(), packet)
 
 
 @asyncio.coroutine
 def is_typing_handler(stream):
+
     """
     Show message to opponent if user is typing message
     """
@@ -212,6 +285,7 @@ def is_typing_handler(stream):
 
 @asyncio.coroutine
 def read_message_handler(stream):
+
     """
     Send message to user if the opponent has read the message
     """
@@ -220,10 +294,11 @@ def read_message_handler(stream):
         session_id = packet.get('session_key')
         user_opponent = packet.get('username')
         message_id = packet.get('message_id')
+
         if session_id and user_opponent and message_id is not None:
             user_owner = get_user_from_session(session_id)
             if user_owner:
-                message = models.Message.filter(id=message_id).first()
+                message = models.Message.objects.filter(id=message_id).first()
                 if message:
                     message.read = True
                     message.save()

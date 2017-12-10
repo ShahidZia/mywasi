@@ -1,43 +1,61 @@
 from django import template
-from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+
 from django.db.models import Q
 
 from accounts.models import *
 from django_private_chat.models import *
 
+
+ALLOWABLE_VALUES = ("CHAT_WS_SERVER_PROTOCOL", "CHAT_WS_SERVER_HOST", "CHAT_WS_SERVER_PORT")
+
 register = template.Library()
 
+
 @register.inclusion_tag('django_private_chat/partials/conversation.html',takes_context=True)
-def render_conversation(context, user ,opponent):
-    profile = Profile.objects.get(user_id= opponent.id)
+def render_conversation(context, user, opponent, selected):
+    profile = Profile.objects.get(user_id=opponent.id)
+
+    opened = False
+    if opponent.username == selected:
+        opened = True
 
     user_1 = user
     user_2 = opponent
 
-
-
     dialog = Dialog.objects.filter(Q(owner=user_1, opponent=user_2) | Q(opponent=user_1, owner=user_2)).last()
 
-    image = 'https://www.communitylandtrust.ca/wp-content/uploads/2015/10/placeholder.png'
+    image = None
     if profile.image:
         image = profile.image.url
 
-    context.update({'id':opponent.id, 'userId': opponent.username.split('@')[0].replace('.',''), 'name': opponent.first_name, 'image' : image , 'last': dialog.messages.last() })
+    context.update({'id': opponent.id, 'userId': opponent.username.split('@')[0].replace('.', ''), 'name': opponent.first_name, 'image': image, 'last': dialog.messages.filter(sender_id=opponent.id).last(), 'opened': opened, 'unread': dialog.messages.filter(read=False, sender=opponent).count})
 
     return context
 
-@register.inclusion_tag('django_private_chat/partials/thread.html',takes_context=True)
-def render_thread(context, user ,msg):
 
-    profile = Profile.objects.get(user_id= user.id)
+@register.inclusion_tag('django_private_chat/partials/message.html', takes_context=True)
+def render_thread(context, user, msg):
 
-    image = 'https://www.communitylandtrust.ca/wp-content/uploads/2015/10/placeholder.png'
+    profile_me = Profile.objects.get(user_id=user.id)
 
-    if profile.image:
-        image = profile.image.url
+    profile_opponent = Profile.objects.get(user_id=msg.sender.id)
 
-    context.update({'user':user, 'msg': msg, 'image' : image })
+    image_me = None
+    image_opponent = None
+
+    if profile_me.image:
+        image_me = profile_me.image.url
+
+    if profile_opponent.image:
+        image_opponent = profile_opponent.image.url
+
+    context.update({'user': user, 'msg': msg, 'image_me': image_me, 'image_opponent': image_opponent})
 
     return context
 
+
+@register.simple_tag
+def settings_value(name):
+    if name in ALLOWABLE_VALUES:
+        return getattr(settings, name, '')
+    return ''

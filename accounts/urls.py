@@ -27,4 +27,7 @@ urlpatterns = [
     # Dashboard
     url(r'^settings/$', views.edit_profile, name='settings'),
     url(r'^change_status/(?P<status>[-\w]+)/$', views.change_user_status, name='change_status'),
+
+    url(r"^lookup_users/?$", views.search_for_users, name='users-lookup')
+
 ]

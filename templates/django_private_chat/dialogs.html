@@ -3,6 +3,9 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n chat_tags %}
+<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 {% block css %}
     <style>
         .card-block{
@@ -31,6 +34,9 @@
             color: #737070;
             font-weight: 100;
             font-size: small;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
         .ldate{
             color: #737070;
@@ -42,32 +48,204 @@
         }
 
         .circle {
+            border-radius: 50%;
             display: inline-block;
-            width: 6px;
             height: 6px;
-            -webkit-border-radius: 25px;
-            -moz-border-radius: 25px;
-            border-radius: 25px;
-            margin: 1px;
+            margin-left: 4px;
+            width: 6px;
         }
-        .userOffline>section>div>h5>.circle{
-            background: rgba(72,74,71,0.54);
+
+        .circle_con {
+            border-radius: 100%;
+            display: inline-block;
+            height: 14px;
+            margin-left: 4px;
+            width: 14px;
+            position: absolute;
+            top: 60%;
+            left: 9%;
+            border: 3px solid white;
         }
-        .userOnline>section>div>h5>.circle{
-            background: #11ab52;
+
+        .userOffline>section>div>h5>.circle_con{
+            background: rgb(100, 102, 99);
         }
+
+        .userOnline>section>div>h5>.circle_con{
+            background: rgb(66, 183, 42);
+        }
+
         .chatbox{
             margin: 2%;
         }
+
         .card-head{
             padding: .75rem 1.25rem;
             background: #ffffff;
         }
+
         .sendBtn{
             position: absolute;
-            right: 6%;
-            top: 15%;
-            transform: rotate(57deg);
+            left: 0%;
+            top: 25%;
+            transform: rotate(60deg);
+            color: darkgrey
+        }
+
+        .user_time{
+            font-size : x-small;
+        }
+
+        .myMd2{
+            text-align: center;
+            padding: 0;
+        }
+
+        .oppoMd2{
+            text-align: center;
+            padding: 0;
+        }
+
+        .msgRow{
+            margin: 2% -4% !important;
+        }
+
+        .capsule {
+            padding: 2% 4%;
+            min-width: 5%;
+            margin: 0 auto;
+            border-radius: 30px;
+            background : white;
+        }
+
+        .capsule_me {
+            padding: 2% 4%;
+            min-width: 5%;
+            margin: 0 auto;
+            border-radius: 30px;
+            background : #008ef3;
+            text-align: left;
+            color: white;
+        }
+        .msp{
+            font-size: smaller;
+        }
+
+        .selecte{
+            background : #008ef3;
+            -webkit-box-shadow: 0 0 3px rgb(134,134,134);
+            -moz-box-shadow: 0 0 3px rgb(134,134,134);
+        }
+        .chatbox{
+            height: 350px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px;
+            padding: 10px;
+        }
+        .selecte>div>h5>span{
+            color: white;
+        }
+
+        #typing-text{
+            font-size: small;
+            margin-left: 3%;
+            text-transform: lowercase;
+            position:absolute;
+        }
+        .uread{
+            background: red;
+            border-radius: 100%;
+            font-size: 50%;
+            position: absolute;
+            right: 7%;
+            top: 50%;
+        }
+        .hide{
+            display: none;
+        }
+        .seen{
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            font-size: x-small;
+            font-style: italic;
+            text-align: center;
+        }
+
+        @media (max-width: 768px){
+            .col-xs-8 {
+                -webkit-box-flex: 0;
+                -webkit-flex: 0 0 66.666667%;
+                -ms-flex: 0 0 66.666667%;
+                flex: 0 0 66.666667%;
+                max-width: 66.666667%;
+            }
+            .col-xs-3 {
+                -webkit-box-flex: 0;
+                -webkit-flex: 0 0 25%;
+                -ms-flex: 0 0 25%;
+                flex: 0 0 25%;
+                max-width: 25%;
+            }
+            .col-xs-1 {
+                -webkit-box-flex: 0;
+                -webkit-flex: 0 0 8.333333%;
+                -ms-flex: 0 0 8.333333%;
+                flex: 0 0 8.333333%;
+                max-width: 8.333333%;
+            }
+        }
+        #search_user{
+            height: 56px;
+        }
+        #suggested-users {
+            display: none;
+            position: absolute;
+            clear: both;
+            z-index: 1;
+            border: 1px solid #bcbcbcad;
+            background-color: whitesmoke;
+            top: 10%;
+            left: 3%;
+            min-width: 94%;
+        }
+
+        .lookups{
+            padding: 16px;
+        }
+
+        .toScroll{
+            background-color: rgb(243, 243, 243) !important;
+        }
+        .toScroll::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #F5F5F5;
+        }
+
+        .toScroll::-webkit-scrollbar
+        {
+            width: 7px;
+            background-color: #F5F5F5;
+        }
+
+        .toScroll::-webkit-scrollbar-thumb
+        {
+            background-color: #898989;
+            border-radius: 100px;
+        }
+
+        .user-list-div{
+            max-height: 350px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        #chat-message{
+            border: 0px !important;
+        }
+        .card-footr{
+            background: white;
         }
 
     </style>
@@ -80,15 +258,20 @@
         <h3>{% trans "Chat" %}</h3>
         <div class="row">
             <div class="col-md-5">
-                <div class="user-list-div">
+                <div class="fieldcontainer">
+                    <input type="text" name="term" id="search_user" class="form-control" placeholder="Please enter search keyword..." tabindex="1" autocomplete="off">
+                    <div id="suggested-users">
+                    </div>
+                </div>
+                <div class="user-list-div toScroll">
                     {% for dialog in object_list %}
                         {% if dialog.owner == request.user %}
                             {% with dialog.opponent as user %}
-                                {% render_conversation request.user user %}
+                                {% render_conversation request.user user opponent_username %}
                             {% endwith %}
                         {% else %}
                             {% with dialog.owner as user %}
-                                {% render_conversation request.user user %}
+                                {% render_conversation request.user user opponent_username%}
                             {% endwith %}
                         {% endif %}
                     {% endfor %}
@@ -97,23 +280,24 @@
             <div class="col-md-7">
                 <section class="card box-typical-full-height">
                     <div class="card-block" style="padding: 0 !important; background: whitesmoke;">
-                        <div class="card-head">
-                            <h5 class="card-title">
+                        <div class="card-head" style="min-height: 58px">
+                            <h3 class="card-title" style="text-transform: capitalize;">
+                                <div class="circle" id="online-status" style="display: none; background: rgb(66, 183, 42); margin-bottom: 7px;"></div>
+                                <div class="circle" id="offline-status" style="display: none; background: rgba(72,74,71,0.54); margin-bottom: 7px;"></div>
+
                                 {{ opponent_name }}
-                                {#                            <p class="text-success" id="online-status" style="display: none">{% trans "Online" %}</p>#}
-                                {#                            <p class="text-danger" id="offline-status" style="display: none">{% trans "Offline" %}</p>#}
-                                <span class="pull-right" hidden id="typing-text">
-                                    {{ opponent_name }} {% trans "is typing..." %}
+                                <br>
+                                <span style="display: none;" id="typing-text">
+                                   {% trans "typing..." %}
                                 </span>
 
-                            </h5>
+                            </h3>
                         </div>
                         <div class="card-body">
-                            <div class="row chatbox">
+                            <div class="row chatbox toScroll" id="messages">
                                 <div class="col-md-12">
-
                                     <div class="messages-container">
-                                        <div id="messages" class="messages">
+                                        <div class="messages">
                                             {% for msg in active_dialog.messages.all %}
                                                 {% render_thread request.user msg %}
                                             {% endfor %}
@@ -124,11 +308,13 @@
                         </div>
                         <div class="card-footr">
                             <div class="row">
-                                <div class="col-md-12">
-                                        <textarea id="chat-message" class="form-control message"
+                                <div class="col-md-11">
+                                        <textarea rows="3" id="chat-message" class="form-control message"
                                                   placeholder="{% trans 'Write a message' %}"></textarea>
+                                </div>
 
-                                    <i id="btn-send-message" role="button" class="sendBtn send-message glyphicon glyphicon-send"></i>
+                                <div class="col-md-1">
+                                    <i id="btn-send-message" role="button" class="sendBtn send-message fa fa-paper-plane-o"></i>
                                 </div>
                             </div>
                         </div>
@@ -144,10 +330,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"
             integrity="sha256-BseZlDlA+yL4qu+Voi82iFa5aaifralQEXIjOjaXgeo=" crossorigin="anonymous"></script>
     <script>
-        var base_ws_server_path = "{{ ws_server_path }}";
         $(document).ready(function () {
+
             var websocket = null;
             var monitor = null;
+
+            var lookupUsersUrl = "{% url 'users-lookup' %}?term=";
+
+            function lookupUsers(term) {
+                var popup = $('#suggested-users');
+                if (term == null || typeof(term) == 'undefined' || term.length < 2) {
+                    popup.html('');
+                    popup.hide();
+                    return;
+                }
+                $.ajax(lookupUsersUrl+term, method='get')
+                    .then(function(res){
+                        popup.html(res);
+                        if (res.length > 0){
+                            popup.fadeIn();
+                        } else {
+                            popup.hide();
+                        }
+                    });
+            }
+
 
             function initReadMessageHandler(containerMonitor, elem) {
                 var id = $(elem).data('id');
@@ -161,12 +368,16 @@
                         message_id: id
                     });
                     $(elem).removeClass('msg-unread').addClass('msg-read');
+
+                    var elems = $("#" + opponent_username.split('@')[0].replace('.',''));
+                    var badge = elems.find('.uread');
+                    badge.fadeOut("slow");
                     websocket.send(packet);
                 });
             }
 
             function initScrollMonitor() {
-                var containerElement = $("#messages");
+                var containerElement = $(".messages");
                 var containerMonitor = scrollMonitor.createContainer(containerElement);
                 $('.msg-unread').each(function (i, elem) {
                     if ($(elem).hasClass('opponent')){
@@ -181,43 +392,24 @@
                 return "{{ opponent_username }}";
             }
 
-            // TODO: Use for adding new dialog
-            function addNewUser(packet) {
-                $('#user-list').html('');
-                packet.value.forEach(function (userInfo) {
-                    if (userInfo.username == getUsername()) return;
-                    var tmpl = Handlebars.compile($('#user-list-item-template').html());
-                    $('#user-list').append(tmpl(userInfo))
-                });
-            }
-
             function addNewMessage(packet) {
-                var msg_class = "";
-                if (packet['sender_name'] == $("#owner_username").val()) {
-                    msg_class = "pull-left";
-                } else {
-                    msg_class = "pull-right";
+
+                var user = $('#owner_username').val();
+
+                if(user === packet.sender_name)
+                    $('.messages').append(packet.myMessage);
+                else{
+                    var audio = new Audio('{% static 'sounds/facebook.mp3' %}');
+                    $('.messages').append(packet.newMessage);
+                    audio.play()
                 }
-                var msgElem =
-                        $('<div class="row msg-unread" data-id="' + packet.message_id + '">' +
-                                '<p class="' + msg_class + '">' +
-                                '<span class="username">' + packet['sender_name'] + ': </span>' +
-                                packet['message'] +
-                                ' <span class="timestamp">&ndash; <span data-livestamp="' + packet['created'] + '"> ' + packet['created'] + '</span></span> ' +
-                                '</p> ' +
-                                '</div>');
-                $('#messages').append(msgElem);
+
                 scrollToLastMessage()
             }
 
             function scrollToLastMessage() {
                 var $msgs = $('#messages');
                 $msgs.animate({"scrollTop": $msgs.prop('scrollHeight')})
-            }
-
-            function generateMessage(context) {
-                var tmpl = Handlebars.compile($('#chat-message-template').html());
-                return tmpl({msg: context})
             }
 
             function setUserOnlineOffline(username, online) {
@@ -245,14 +437,16 @@
             }
 
             function flash_user_button(username) {
-                var btn = $("#user-" + username);
-                btn.fadeTo(700, 0.1, function () {
-                    $(this).fadeTo(800, 1.0);
-                });
+                var elem = $("#" + username.split('@')[0].replace('.',''));
+                var badge = elem.find('.uread');
+                badge.fadeOut();
+                badge.text(parseInt(badge[0].innerHTML)+1);
+                badge.fadeIn("slow");
             }
 
             function setupChatWebSocket() {
                 var opponent_username = getOpponnentUsername();
+
                 websocket = new WebSocket(base_ws_server_path + '{{ request.session.session_key }}/' + opponent_username);
 
                 websocket.onopen = function (event) {
@@ -270,9 +464,7 @@
 
                     });
 
-                    console.log('connected, sending:', onConnectPacket);
                     websocket.send(onConnectPacket);
-                    console.log('checking online opponents with:', onOnlineCheckPacket);
                     websocket.send(onOnlineCheckPacket);
                     monitor = initScrollMonitor();
                 };
@@ -286,7 +478,6 @@
                         username: opponent_username,
                         {# Sending username because to let opponnent know that the user went offline #}
                     });
-                    console.log('unloading, sending:', onClosePacket);
                     websocket.send(onClosePacket);
                     websocket.close();
                 };
@@ -297,14 +488,12 @@
 
                     try {
                         packet = JSON.parse(event.data);
-                        console.log(packet)
                     } catch (e) {
                         console.log(e);
                     }
 
                     switch (packet.type) {
                         case "new-dialog":
-                            // TODO: add new dialog to dialog_list
                             break;
                         case "user-not-found":
                             // TODO: dispay some kind of an error that the user is not found
@@ -326,6 +515,8 @@
                             setUserOnlineOffline(packet.username, false);
                             break;
                         case "new-message":
+
+                            var audio = new Audio('{% static 'sounds/facebook.mp3' %}');
                             var username = packet['sender_name'];
                             if (username == opponent_username || username == $("#owner_username").val()){
                                 addNewMessage(packet);
@@ -333,30 +524,32 @@
                                     initReadMessageHandler(monitor, $("div[data-id='" + packet['message_id'] + "']"));
                                 }
                             } else {
-                                if ($("#user-"+username).length == 0){
-                                    var new_button = $(''+
-                                            '<a href="/'+ username + '"' +
-                                            'id="user-'+username+'" class="btn btn-danger">{% trans "Chat with" %} '+username+'</a>');
-                                    $("#user-list-div").find("ul").append()
-                                }
-                                flash_user_button(username);
+                                var elem = $("#" + username.split('@')[0].replace('.',''));
 
+                                if (elem.length == 0){
+                                    $(".user-list-div").append(packet['newSender']);
+                                }
+                                else
+                                    flash_user_button(username);
+
+                                audio.play();
                             }
                             break;
                         case "opponent-typing":
                             var typing_elem = $('#typing-text');
                             if (!typing_elem.is(":visible")) {
-                                typing_elem.fadeIn(500);
+                                typing_elem.fadeIn();
                             } else {
                                 typing_elem.stop(true);
                                 typing_elem.fadeIn(0);
                             }
-                            typing_elem.fadeOut(3000);
+                            typing_elem.fadeOut(1000);
 
                             break;
                         case "opponent-read-message":
-                            if (packet['username'] == opponent_username) {
-                                $("div[data-id='" + packet['message_id'] + "']").removeClass('msg-unread').addClass('msg-read');
+                            if (packet['username'] != opponent_username) {
+                                $('.seen').fadeOut();
+                                $("div[data-id='" + packet['message_id'] + "']").removeClass('msg-unread').addClass('msg-read').find('.col-md-8').append('<div class="seen">Seen &#10003<div>');;
                             }
                             break;
 
@@ -376,6 +569,13 @@
                 });
                 websocket.send(newMessagePacket)
             }
+
+            $('#search_user').keyup(function(e){
+                setTimeout(function(){
+                    var term = e.currentTarget.value;
+                    lookupUsers(term);
+                }, 500)  // Trigger searching only after 500 ms
+            });
 
             $('#chat-message').keypress(function (e) {
                 if (e.which == 13 && this.value) {

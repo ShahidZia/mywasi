@@ -13,5 +13,5 @@ urlpatterns = [
         regex=r'^chat/$',
         view=views.DialogListView.as_view(),
         name='dialogs'
-    ),
+    )
 ]

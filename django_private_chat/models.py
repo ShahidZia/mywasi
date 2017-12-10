@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import datetime
 from django.db import models
 from model_utils.models import TimeStampedModel, SoftDeletableModel
 from django.conf import settings
@@ -24,7 +24,15 @@ class Message(TimeStampedModel, SoftDeletableModel):
     all_objects = models.Manager()
 
     def get_formatted_create_datetime(self):
-        return dj_date(self.created, "H:m")
+        dateMsg = datetime.datetime.date(self.created)
+        dateNow = datetime.datetime.now()
+
+        fstr = "H:m"
+
+        if dateNow.day is not dateMsg.day:
+            fstr = "d/m/y"
+
+        return dj_date(self.created, fstr)
 
     def my_get_formatted_create_datetime(self):
         return dj_date(self.created, "d M")

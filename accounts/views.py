@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-from django.shortcuts import render, redirect, get_object_or_404
+
+from django.db.models import Q
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
+from django.template import RequestContext
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -100,3 +104,19 @@ def change_user_status(request, status):
     user.profile.status = status
     user.save()
     return redirect('properties')
+
+
+@login_required
+def search_for_users(request):
+
+    query = request.GET.get('term')
+    if query and request.is_ajax():
+        suggestions = Profile.objects.filter(Q(user__first_name__icontains=query) | Q(user__last_name__icontains=query) | Q(user__email__icontains=query) | Q(phone__icontains=query), user__is_superuser=False).exclude(user_id=request.user.id)
+        if suggestions.exists():
+            context = {
+                'profiles': suggestions,
+                'term': query,
+            }
+            return render_to_response('django_private_chat/partials/suggestions.html', context)
+
+    return HttpResponse('')

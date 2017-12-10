@@ -1,0 +1,20 @@
+{% load static %}
+
+<ul>
+    {% for profile in profiles %}
+        <li style="border-bottom: 1px solid; border-bottom-color: blueviolet;">
+            <a href="/chat/{{ profile.user.id }}">
+                <div class="lookups clearfix">
+                    {% if profile.image %}
+                        <img src="{{ profile.image.url }}" class="avatar">
+                    {% else %}
+                        <img src="{% static 'img/placeholder.png' %}" class="avatar">
+                    {%  endif %}
+
+                    <h5 class="coname" style="text-transform: capitalize; margin: 0px;">{{ profile.user.first_name }} {{ profile.user.last_name }}</h5>
+                    <p style="color: #7a7777; font-size: small; margin: 0px;">{{ profile.user.email }}</p>
+                </div>
+            </a>
+        </li>
+    {% endfor %}
+</ul>

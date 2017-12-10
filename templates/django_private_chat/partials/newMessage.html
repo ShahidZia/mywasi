@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="row  msgRow msg-unread"
+     data-id="{{ msg.id }}">
+    <div class="col-md-1  col-xs-1 oppoMd2">
+        <span class="username">
+                {% if image_opponent %}
+                    <img src="{{ image_opponent }}" class="avatar">
+                {% else %}
+                    <img src="{% static 'img/placeholder.png' %}" class="avatar">
+                {% endif %}
+
+                <span class="user_time" data-livestamp="{{ msg.get_formatted_create_datetime }}">
+                    {{ msg.get_formatted_create_datetime }}
+                </span>
+
+        </span>
+
+    </div>
+    <div class="col-md-8  col-xs-8"  style="padding: 5px;">
+        <div class="capsule pull-left">
+            <p class="no-margin msp">
+                {{ msg.text }}
+            </p>
+        </div>
+    </div>
+
+</div>

@@ -141,7 +141,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 
 EMAIL_HOST_USER = 'apptester.softsol@gmail.com'
 
-EMAIL_HOST_PASSWORD = 'Panasonic95'
+EMAIL_HOST_PASSWORD = config('EMAIL_API_KEY')
 
 EMAIL_PORT = 587
 

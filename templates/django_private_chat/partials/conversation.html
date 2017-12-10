@@ -1,13 +1,25 @@
-<a class="userOffline" href="{% url 'dialogs_detail' user.id %}" id="{{ userId }}">
-    <section class="card">
+{% load static %}
+
+<a class="userOffline" href="/chat/{{ id }}" id="{{ userId }}">
+    <section class="card {% if opened %}selecte{% endif %}">
         <div class="card-block">
             <h5 class="card-title">
             <span class="ldate pull-right">
                 {{ last.my_get_formatted_create_datetime }}
             </span>
-                <img src="{{ image }}" class="avatar">
-                <span class="coname">{{ name }}</span>
-                <div class="circle"></div>
+
+            <span class="badge uread {% if unread == 0%}hide{% endif %}">{{ unread }}</span>
+                {% if not opened %}
+                    <div class="circle_con"></div>
+                {% endif %}
+
+                {% if image %}
+                    <img src="{{ image }}" class="avatar">
+                {% else %}
+                    <img src="{% static 'img/placeholder.png' %}" class="avatar">
+                {% endif %}
+
+                <span class="coname" style="text-transform: capitalize;">{{ name }} </span>
                 <span class="last">{{ last.text }}</span>
             </h5>
         </div>

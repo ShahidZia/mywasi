@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load chat_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -36,8 +37,8 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
 
-{#    <script src="{% static 'js/lib/jquery/jquery.min.js' %}"></script>#}
-{#    <script src="{% static 'js/lib/bootstrap/bootstrap.min.js' %}"></script>#}
+    {#    <script src="{% static 'js/lib/jquery/jquery.min.js' %}"></script>#}
+    {#    <script src="{% static 'js/lib/bootstrap/bootstrap.min.js' %}"></script>#}
 
     <!--Photo gallery scripts-->
 
@@ -49,6 +50,16 @@
         .carousel-inner img {
             width: 100%;
             height: 100%;
+        }
+        .bubble{
+            border-radius: 100%;
+            height: 8px;
+            width: 8px;
+            background-color: rgba(248, 15, 15, 0.77);
+            color: #fff;
+            position: relative;
+            float: right;
+            right: 4px;
         }
 
     </style>
@@ -70,7 +81,7 @@
         </button>
         <div class="site-header-content">
             <div class="row site-header-content-in">
-                <div class="col-6">
+                <div class="col-5">
                     {% block path %}
                     {% endblock %}
                 </div>
@@ -83,6 +94,13 @@
                             <li><a href="{% url 'change_status' status='buyer' %}">Comprador</a></li>
                         </ul>
                     </div>
+                </div>
+                <div class="col-1" style="text-align: center; padding: 5px;">
+                    <a id="notify">
+                        <i class="fa fa-bell-o fa-2x " role="button" style="font-size: 1.4em" aria-hidden="true">
+                            <span style="display: none;" class="bubble"></span>
+                        </i>
+                    </a>
                 </div>
                 <div class="col-3 site-header-shown">
                     <div class="dropdown user-menu">
@@ -180,19 +198,72 @@
 <script src="{% static 'js/lib/fullcalendar/fullcalendar-init.js' %}"></script>
 
 <script>
+    var base_ws_server_path ="{% settings_value "CHAT_WS_SERVER_PROTOCOL" %}://{% settings_value "CHAT_WS_SERVER_HOST" %}:{% settings_value "CHAT_WS_SERVER_PORT" %}/";
+
     $(function() {
         $('#example').DataTable({
             responsive: true
         });
+    });
+
+    $(document).ready(function () {
+
+        function setupChatWebSocket() {
+
+            websocket = new WebSocket(base_ws_server_path + '{{ request.session.session_key }}/');
+
+            websocket.onopen = function (event) {
+
+                var onConnectPacket = JSON.stringify({
+                    type: "online",
+                    session_key: '{{ request.session.session_key }}'
+                });
+
+                var onConnectCheckUnread = JSON.stringify({
+                    type: "check_unread",
+                    session_key: '{{ request.session.session_key }}'
+                });
+
+                websocket.send(onConnectPacket);
+                websocket.send(onConnectCheckUnread);
+            };
+
+            websocket.onmessage = function (event) {
+                var packet;
+
+                try {
+                    packet = JSON.parse(event.data);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+
+                if(packet.type === "new-message") {
+                    var audio = new Audio('{% static 'sounds/facebook.mp3' %}');
+                    audio.play();
+                    $('.bubble').show();
+                    $('#notify').attr('href','/chat/'+packet['sender_id']);
+                }
+                else if(packet.type === "check_unread"){
+                    $('.bubble').show();
+                    $('#notify').attr('href','/chat/'+packet.message_id);
+                }
+            }
+        }
+
+        if(window.location.pathname.indexOf("chat") == -1){
+            setupChatWebSocket();
+        }
     });
 </script>
 
 <script src="{% static 'js/lib/hide-show-password/bootstrap-show-password.min.js' %}"></script>
 <script src="{% static 'js/lib/hide-show-password/bootstrap-show-password-init.js' %}"></script>
 
-{% block scripts %}
-{% endblock %}
+{% block scripts %}{% endblock %}
+
 {% block extra_js %}{% endblock extra_js %}
+
 <div class="responsive-bootstrap-toolkit">
     <div class="device-xs visible-xs visible-xs-block"></div>
     <div class="device-sm visible-sm visible-sm-block"></div>

@@ -1,0 +1,56 @@
+{% load static %}
+
+<div class="row  msgRow {% if msg.read %}msg-read{% else %}msg-unread{% endif %} {% if msg.sender != user %}opponent{% endif %}"
+     data-id="{{ msg.id }}">
+    {% if msg.sender != user %}
+        <div class="col-md-1 col-xs-1 oppoMd2">
+        <span class="username">
+                {% if image_opponent %}
+                    <img src="{{ image_opponent }}" class="avatar">
+                {% else %}
+                    <img src="{% static 'img/placeholder.png' %}" class="avatar">
+                {% endif %}
+
+            <span class="user_time" data-livestamp="{{ msg.get_formatted_create_datetime }}">
+                    {{ msg.get_formatted_create_datetime }}
+                </span>
+        </span>
+
+        </div>
+        <div class="col-md-8 col-xs-8 "  style="padding: 5px;">
+            <div class="capsule pull-left">
+                <p class="no-margin msp">
+                    {{ msg.text }}
+                </p>
+            </div>
+        </div>
+
+    {% else %}
+        <div class="col-md-3 col-xs-3 no-padding">
+        </div>
+
+        <div class="col-md-8 col-xs-8 " style="padding: 5px;">
+            <div class="capsule_me pull-right">
+                <p class="no-margin msp">
+                    {{ msg.text }}
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-1 col-xs-1 myMd2">
+            <span class="username">
+                {% if image_me %}
+                    <img src="{{ image_me }}" class="avatar">
+                {% else %}
+                    <img src="{% static 'img/placeholder.png' %}" class="avatar">
+                {% endif %}
+
+                <span class="user_time" data-livestamp="{{ msg.get_formatted_create_datetime }}">
+                        {{ msg.get_formatted_create_datetime }}
+                </span>
+            </span>
+        </div>
+
+    {% endif %}
+
+</div>
