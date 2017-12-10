@@ -3,7 +3,7 @@
 <div class="row  msgRow {% if msg.read %}msg-read{% else %}msg-unread{% endif %} {% if msg.sender != user %}opponent{% endif %}"
      data-id="{{ msg.id }}">
     {% if msg.sender != user %}
-        <div class="col-md-1 col-xs-1 oppoMd2">
+        <div class="col-md-1 col-xs-2 oppoMd2">
         <span class="username">
                 {% if image_opponent %}
                     <img src="{{ image_opponent }}" class="avatar">
