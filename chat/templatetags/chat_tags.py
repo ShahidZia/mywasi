@@ -3,7 +3,7 @@ from django import template
 from django.db.models import Q
 
 from accounts.models import *
-from django_private_chat.models import *
+from chat.models import *
 
 
 ALLOWABLE_VALUES = ("CHAT_WS_SERVER_PROTOCOL", "CHAT_WS_SERVER_HOST", "CHAT_WS_SERVER_PORT")
@@ -11,7 +11,7 @@ ALLOWABLE_VALUES = ("CHAT_WS_SERVER_PROTOCOL", "CHAT_WS_SERVER_HOST", "CHAT_WS_S
 register = template.Library()
 
 
-@register.inclusion_tag('django_private_chat/partials/conversation.html',takes_context=True)
+@register.inclusion_tag('chat/partials/conversation.html', takes_context=True)
 def render_conversation(context, user, opponent, selected):
     profile = Profile.objects.get(user_id=opponent.id)
 
@@ -33,7 +33,7 @@ def render_conversation(context, user, opponent, selected):
     return context
 
 
-@register.inclusion_tag('django_private_chat/partials/message.html', takes_context=True)
+@register.inclusion_tag('chat/partials/message.html', takes_context=True)
 def render_thread(context, user, msg):
 
     profile_me = Profile.objects.get(user_id=user.id)

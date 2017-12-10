@@ -2,8 +2,8 @@ import asyncio
 import websockets
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django_private_chat import channels, handlers
-from django_private_chat.utils import logger
+from chat import channels, handlers
+from chat.utils import logger
 
 
 class Command(BaseCommand):

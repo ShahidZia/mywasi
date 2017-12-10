@@ -9,12 +9,11 @@ from . import models
 from . import utils
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
-from django.conf import settings
 from django.db.models import Q
 
 
 class DialogListView(LoginRequiredMixin, generic.ListView):
-    template_name = 'django_private_chat/dialogs.html'
+    template_name = 'chat/dialogs.html'
     model = models.Dialog
     ordering = 'modified'
 

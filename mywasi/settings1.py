@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'offers',
     'properties',
     'cal',
-    'django_private_chat',
+    'chat',
 
     # Django apps
     'formtools',
@@ -82,7 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
             ],
             'libraries':{
-                'chat_tags': 'django_private_chat.templatetags.chat_tags',
+                'chat_tags': 'chat.templatetags.chat_tags',
 
             }
         },

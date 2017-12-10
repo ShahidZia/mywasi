@@ -3,9 +3,9 @@ import websockets
 import uvloop
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django_private_chat import channels_uvloop as channels
-from django_private_chat import handlers
-from django_private_chat.utils import logger
+from chat import channels_uvloop as channels
+from chat import handlers
+from chat.utils import logger
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 

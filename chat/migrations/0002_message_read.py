@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('django_private_chat', '0001_initial'),
+        ('chat', '0001_initial'),
     ]
 
     operations = [

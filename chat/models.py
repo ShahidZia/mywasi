@@ -7,7 +7,6 @@ from django.template.defaultfilters import date as dj_date
 from django.utils.translation import ugettext as _
 
 
-
 class Dialog(TimeStampedModel):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Dialog owner"), related_name="selfDialogs")
     opponent = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Dialog opponent"))

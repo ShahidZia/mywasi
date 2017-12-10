@@ -85,7 +85,7 @@ def check_online(stream):
                 socket = ws_connections.get((user_owner.username, opponent_username))
                 if socket:
                     online_opponents_usernames = [i[0] for i in online_opponents]
-                    yield from target_message(socket,{'type': 'gone-online', 'usernames': online_opponents_usernames})
+                    yield from target_message(socket, {'type': 'gone-online', 'usernames': online_opponents_usernames})
                 else:
                     pass  # socket for the pair user_owner.username, opponent_username not found
                     # this can be in case the user has already gone offline
@@ -199,10 +199,10 @@ def new_messages_handler(stream):
                     context = {'msg': msg, 'image_opponent': image_opponent}
 
                     senderContext = {'id': msg.sender.id, 'userId': msg.sender.username.split('@')[0].replace('.', ''), 'name': msg.sender.first_name, 'image': image_opponent, 'last': msg, 'unread': 1}
-                    newSender = render_to_string('django_private_chat/partials/conversation.html', senderContext)
 
-                    myMessage = render_to_string('django_private_chat/partials/myMessage.html', context)
-                    newMessage = render_to_string('django_private_chat/partials/newMessage.html', context)
+                    newSender = render_to_string('chat/partials/conversation.html', senderContext)
+                    myMessage = render_to_string('chat/partials/myMessage.html', context)
+                    newMessage = render_to_string('chat/partials/newMessage.html', context)
 
                     packet['created'] = msg.get_formatted_create_datetime()
                     packet['sender_name'] = msg.sender.username
