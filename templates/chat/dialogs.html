@@ -59,19 +59,37 @@
             border-radius: 100%;
             display: inline-block;
             height: 14px;
-            margin-left: 4px;
             width: 14px;
             position: absolute;
-            top: 60%;
+            top: 56%;
             left: 9%;
             border: 3px solid white;
         }
+        .circle_act {
+            border-radius: 100%;
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+            position: absolute;
+            top: 57%;
+            left: 10%;
+            border: 2px solid white;
+        }
 
-        .userOffline>section>div>h5>.circle_con{
+        .userOffline>section>div>h5>.circle_con,.circle_act {
             background: rgb(100, 102, 99);
         }
 
-        .userOnline>section>div>h5>.circle_con{
+        .userOnline>section>div>h5>.circle_con, .circle_act{
+            background: rgb(66, 183, 42);
+        }
+
+
+        .userOffline>section>div>h5>.circle_act {
+            background: rgb(100, 102, 99);
+        }
+
+        .userOnline>section>div>h5>.circle_act{
             background: rgb(66, 183, 42);
         }
 
@@ -86,10 +104,13 @@
 
         .sendBtn{
             position: absolute;
-            left: 0%;
-            top: 25%;
-            transform: rotate(60deg);
-            color: darkgrey
+            right: 35%;
+            top: 10%;
+        }
+        .sendBtn>img{
+            width: 40px;
+            height: 40px;
+            transform: rotate(22deg);
         }
 
         .user_time{
@@ -123,7 +144,7 @@
             min-width: 5%;
             margin: 0 auto;
             border-radius: 30px;
-            background : #008ef3;
+            background : #2A8BF2;
             text-align: left;
             color: white;
         }
@@ -132,10 +153,27 @@
         }
 
         .selecte{
-            background : #008ef3;
-            -webkit-box-shadow: 0 0 3px rgb(134,134,134);
+            background : #2A8BF2;
             -moz-box-shadow: 0 0 3px rgb(134,134,134);
+            -webkit-box-shadow: 0 0 25px rgba(0, 0, 0, 0.55) !important;
+            margin: 5px 15px 7px 17px !important;
+            border-color: #2A8BF2 !important;
         }
+
+        .myCard{
+            margin: 5px 20px 7px 22px;
+            -webkit-box-shadow: 0 0 25px rgba(0, 0, 0, 0.1) !important;
+            border-color: #f8f8f8;
+        }
+        .fieldcontainer{
+            margin-bottom: 1%;
+            -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.1) !important;
+        }
+        .fieldcontainer > input{
+            border-color: #efeded !important;
+            border-radius: 2px;
+        }
+
         .chatbox{
             height: 350px;
             overflow-y: auto;
@@ -149,10 +187,11 @@
 
         #typing-text{
             font-size: small;
-            margin-left: 3%;
+            top: 55px;
             text-transform: lowercase;
             position:absolute;
         }
+
         .uread{
             background: red;
             border-radius: 100%;
@@ -211,7 +250,7 @@
             }
         }
         #search_user{
-            height: 56px;
+            height: 70px;
         }
         #suggested-users {
             display: none;
@@ -230,23 +269,40 @@
         }
 
         .toScroll{
-            background-color: rgb(243, 243, 243) !important;
+            background-color: #EBEEF7 !important
         }
         .toScroll::-webkit-scrollbar-track
         {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            background-color: #F5F5F5;
+        {#           -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);#}
+            background-color: #e7eff3;
         }
 
         .toScroll::-webkit-scrollbar
         {
-            width: 7px;
+            width: 9px;
             background-color: #F5F5F5;
         }
 
         .toScroll::-webkit-scrollbar-thumb
         {
-            background-color: #898989;
+            background-color: #C1C5C8;;
+            border-radius: 100px;
+        }
+
+        .conScroll::-webkit-scrollbar-track
+        {
+            background-color: #FAFBFD;
+        }
+
+        .conScroll::-webkit-scrollbar
+        {
+            width: 9px;
+            background-color: #F5F5F5;
+        }
+
+        .conScroll::-webkit-scrollbar-thumb
+        {
+            background-color: #C1C5C8;;
             border-radius: 100px;
         }
 
@@ -262,6 +318,30 @@
             background: white;
         }
 
+        body, .user-list-div{
+            background: #FAFBFD !important;
+        }
+        .box-typical-full-height{
+            -webkit-box-shadow: 0px 0 12px rgba(0, 0, 0, 0.1) !important;
+            border-color: #f8f8f8;
+        }
+        input.empty {
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: inherit;
+        }
+        .from{
+            margin: 0;
+            font-size: 15px;
+            color: #848282;
+            font-weight: 600;
+        }
+        .tBtn{
+            background: #2A8BF2 !important;
+            font-size: small;
+            float: right;
+        }
     </style>
 
 {% endblock css %}
@@ -271,13 +351,13 @@
     <div class="container">
         <h3>{% trans "Chat" %}</h3>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-5" style="padding: 0;">
                 <div class="fieldcontainer">
-                    <input type="text" name="term" id="search_user" class="form-control" placeholder="Please enter search keyword..." tabindex="1" autocomplete="off">
+                    <input type="text" name="term" id="search_user" class="form-control empty" placeholder="&#xF002;&nbsp;&nbsp; Search" tabindex="1" autocomplete="off">
                     <div id="suggested-users">
                     </div>
                 </div>
-                <div class="user-list-div toScroll">
+                <div class="user-list-div conScroll" style="margin: 6px;">
                     {% for dialog in object_list %}
                         {% if dialog.owner == request.user %}
                             {% with dialog.opponent as user %}
@@ -291,16 +371,17 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7" style="padding: 0;">
                 <section class="card box-typical-full-height">
-                    <div class="card-block" style="padding: 0 !important; background: whitesmoke;">
-                        <div class="card-head" style="min-height: 58px">
+                    <div class="card-block" style="padding: 0 !important; background: #EBEEF7;">
+                        <div class="card-head" style="max-height: 70px">
                             <h3 class="card-title" style="text-transform: capitalize;">
-                                <div class="circle" id="online-status" style="display: none; background: rgb(66, 183, 42); margin-bottom: 7px;"></div>
-                                <div class="circle" id="offline-status" style="display: none; background: rgba(72,74,71,0.54); margin-bottom: 7px;"></div>
-
-                                {{ opponent_name }}
-                                <br>
+                                {% if myOpponent %}
+                                    {{ myOpponent.prop }}, {{ myOpponent.number }}
+                                    <p class="from">
+                                        From : {{ myOpponent.location }}
+                                    </p>
+                                {% endif %}
                                 <span style="display: none;" id="typing-text">
                                    {% trans "typing..." %}
                                 </span>
@@ -325,10 +406,16 @@
                                 <div class="col-md-11 col-xs-11">
                                         <textarea rows="3" id="chat-message" class="form-control message"
                                                   placeholder="{% trans 'Write a message' %}"></textarea>
+                                    <button class="btn btn-default tBtn" type="button">HACER OFERTA</button>
+                                    <button class="btn btn-default tBtn" type="button">SOLICITAR VISITA</button>
+                                <br>
+                                <br>
                                 </div>
 
                                 <div class="col-md-1 col-xs-1">
-                                    <i id="btn-send-message" role="button" class="sendBtn send-message fa fa-paper-plane-o"></i>
+                                    <a id="btn-send-message"  class="sendBtn">
+                                        <img src="{% static 'img/send.png' %}">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -345,7 +432,6 @@
             integrity="sha256-BseZlDlA+yL4qu+Voi82iFa5aaifralQEXIjOjaXgeo=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
-
             var websocket = null;
             var monitor = null;
 
@@ -458,6 +544,13 @@
                 badge.fadeIn("slow");
             }
 
+            function lastPutSeen() {
+                var elem = $('.msg-read').last();
+                if (!$(elem).hasClass('opponent')){
+                    elem.find('.col-md-8').append('<div class="seen">Seen &#10003<div>');
+                }
+            }
+
             function setupChatWebSocket() {
                 var opponent_username = getOpponnentUsername();
 
@@ -481,6 +574,8 @@
                     websocket.send(onConnectPacket);
                     websocket.send(onOnlineCheckPacket);
                     monitor = initScrollMonitor();
+                    lastPutSeen();
+
                 };
 
 
@@ -535,8 +630,11 @@
                             if (username == opponent_username || username == $("#owner_username").val()){
                                 addNewMessage(packet);
                                 if (username == opponent_username) {
-                                    initReadMessageHandler(monitor, $("div[data-id='" + packet['message_id'] + "']"));
+                                    setTimeout(function () {
+                                        initReadMessageHandler(monitor, $("div[data-id='" + packet['message_id'] + "']"));
+                                    },1000);
                                 }
+
                             } else {
                                 var elem = $("#" + username.split('@')[0].replace('.',''));
 
@@ -563,7 +661,7 @@
                         case "opponent-read-message":
                             if (packet['username'] != opponent_username) {
                                 $('.seen').fadeOut();
-                                $("div[data-id='" + packet['message_id'] + "']").removeClass('msg-unread').addClass('msg-read').find('.col-md-8').append('<div class="seen">Seen &#10003<div>');;
+                                $("div[data-id='" + packet['message_id'] + "']").removeClass('msg-unread').addClass('msg-read').find('.col-md-8').append('<div class="seen">Seen &#10003<div>');
                             }
                             break;
 
@@ -585,6 +683,12 @@
             }
 
             $('#search_user').keyup(function(e){
+                var input = $(this);
+                if(input.val().length === 0) {
+                    input.addClass('empty');
+                } else {
+                    input.removeClass('empty');
+                }
                 setTimeout(function(){
                     var term = e.currentTarget.value;
                     lookupUsers(term);

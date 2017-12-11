@@ -1,6 +1,8 @@
 from django.views import generic
 from braces.views import LoginRequiredMixin
 
+from core.models import Valuation
+
 try:
     from django.urls import reverse
 except ImportError:
@@ -27,7 +29,7 @@ class DialogListView(LoginRequiredMixin, generic.ListView):
             # TODO: show alert that user is not found instead of 404
             user = get_object_or_404(get_user_model(), id=self.kwargs.get('id'))
             dialog = utils.get_dialogs_with_user(self.request.user, user)
-            if self.request.user != user:
+            if self.request.user != user and user.is_superuser is False:
                 if len(dialog) == 0:
                     dialog = models.Dialog.objects.create(owner=self.request.user, opponent=user)
                 else:
@@ -41,7 +43,6 @@ class DialogListView(LoginRequiredMixin, generic.ListView):
                     context['my_value'] = True
                 else:
                     context['my_value'] = False
-
         else:
             if self.object_list:
                 context['active_dialog'] = self.object_list[0]
@@ -52,10 +53,11 @@ class DialogListView(LoginRequiredMixin, generic.ListView):
         if context['my_value']:
             if self.request.user == context['active_dialog'].owner:
                 context['opponent_username'] = context['active_dialog'].opponent.username
-                context['opponent_name'] = context['active_dialog'].opponent.first_name
+                context['myOpponent'] = Valuation.objects.filter(user=self.object_list[0].opponent.id).last()
+
             else:
                 context['opponent_username'] = context['active_dialog'].owner.username
-                context['opponent_name'] = context['active_dialog'].owner.first_name
+                context['myOpponent'] = Valuation.objects.filter(user=self.object_list[0].owner.id).last()
         else:
             pass
         return context

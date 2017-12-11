@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 from accounts.models import Profile
 
+
 class Valuation(models.Model):
     user = models.ForeignKey(User, null=True)
     location = models.CharField(max_length=254, blank=True)

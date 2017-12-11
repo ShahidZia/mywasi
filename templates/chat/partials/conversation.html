@@ -1,7 +1,7 @@
 {% load static %}
 
 <a class="userOffline" href="/chat/{{ id }}" id="{{ userId }}">
-    <section class="card {% if opened %}selecte{% endif %}">
+    <section class="card myCard {% if opened %}selecte{% endif %}">
         <div class="card-block">
             <h5 class="card-title">
             <span class="ldate pull-right">
@@ -9,7 +9,9 @@
             </span>
 
             <span class="badge uread {% if unread == 0%}hide{% endif %}">{{ unread }}</span>
-                {% if not opened %}
+                {% if opened %}
+                    <div class="circle_act"></div>
+                {% else %}
                     <div class="circle_con"></div>
                 {% endif %}
 
