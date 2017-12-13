@@ -177,6 +177,7 @@ def new_messages_handler(stream):
         packet = yield from stream.get()
         session_id = packet.get('session_key')
         msg = packet.get('message')
+        kind = packet.get('kind')
         username_opponent = packet.get('username')
         if session_id and msg and username_opponent:
             user_owner = get_user_from_session(session_id)
@@ -189,7 +190,8 @@ def new_messages_handler(stream):
                         dialog=dialog[0],
                         sender=user_owner,
                         text=packet['message'],
-                        read=False
+                        read=False,
+                        kind=kind
                     )
 
                     dialog[0].modified = datetime.datetime.now()

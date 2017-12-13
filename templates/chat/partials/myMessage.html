@@ -1,14 +1,19 @@
 {% load static %}
 
 <div class="row msgRow msg-unread" data-id="{{ msg.id }}">
-        <div class="col-md-3  col-xs-3 no-padding">
+        <div class="col-md-2  col-xs-3 no-padding">
         </div>
 
-        <div class="col-md-8  col-xs-8" style="padding: 5px;">
+        <div class="col-md-9  col-xs-8" style="padding: 5px;">
             <div class="capsule_me pull-right">
                 <p class="no-margin msp">
                     {{ msg.text }}
                 </p>
+
+                {% if msg.kind %}
+                    <button class="btn btn-default newBtn" type="button">NEW TIME</button>
+                    <button class="btn btn-default acceptBtn" style="color: #2A8BF2 !important;" type="button">ACCEPT</button>
+                {% endif %}
             </div>
         </div>
 

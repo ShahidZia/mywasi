@@ -319,6 +319,19 @@
             font-size: small;
             float: right;
         }
+
+        .newBtn{
+            background: #2A8BF2 !important;
+            font-size: small;
+            float: right;
+        }
+
+        .acceptBtn{
+            background: white !important;
+            font-size: small;
+            float: right;
+            margin-right: 5px;
+        }
     </style>
 
 {% endblock css %}
@@ -652,10 +665,11 @@
                 }
             }
 
-            function sendMessage(message) {
+            function sendMessage(message,type) {
                 var opponent_username = getOpponnentUsername();
                 var newMessagePacket = JSON.stringify({
                     type: 'new-message',
+                    kind: type,
                     session_key: '{{ request.session.session_key }}',
                     username: opponent_username,
                     message: message
@@ -697,9 +711,15 @@
                 var $chatInput = $('#chat-message');
                 var msg = $chatInput.val();
                 if (!msg) return;
-                sendMessage($chatInput.val());
+                sendMessage($chatInput.val(),0);
                 $chatInput.val('')
             });
+
+            $('.tBtn').click(function (e) {
+                var msg = "Okay great, You should check out Logan - don't read up too much about it or watch the trailer-it will spoil the movie for you. it has some adorable moments";
+                sendMessage(msg,1);
+            });
+
 
             setupChatWebSocket();
             scrollToLastMessage();

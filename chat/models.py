@@ -23,6 +23,7 @@ class Message(TimeStampedModel, SoftDeletableModel):
     text = models.TextField(verbose_name=_("Message text"))
     read = models.BooleanField(verbose_name=_("Read"), default=False)
     all_objects = models.Manager()
+    kind = models.IntegerField(default=0, blank=True)
 
     def get_formatted_create_datetime(self):
         dateMsg = datetime.datetime.date(self.created)
