@@ -130,36 +130,41 @@ def check_unread_handler(stream):
         if session_id:
             user_owner = get_user_from_session(session_id)
             if user_owner:
-                dialogs = models.Dialog.objects.filter(Q(opponent=user_owner) | Q(owner=user_owner)).order_by('modified')
+
+                dialogs = models.Dialog.objects.filter(Q(opponent=user_owner) | Q(owner=user_owner))
 
                 if dialogs.exists():
-                    dialog = dialogs.last()
-                    
-                    opponent = dialog.opponent
+                    socket = ws_connections.get((user_owner.username, ''))
 
-                    if opponent == user_owner:
-                        opponent = dialog.owner
-                    
-                    if models.Message.objects.filter(dialog=dialog, read=False, sender=opponent).exists():
-                        
-                        socket = ws_connections.get((user_owner.username, ''))
+                    if socket:
+                        yield from target_message(socket, get_msgs(dialogs, user_owner))
 
-                        if socket:
-                            yield from target_message(socket,
-                                              {'type': 'check_unread',
-                                               'message_id': opponent.id
-                                               })
-                        else:
-                            pass
-                    else:
-                        pass
 
-                else:
-                    pass
-            else:
-                pass  # invalid session id
-        else:
-            pass  # no session id
+def get_msgs(dialogs, user):
+
+    count = 0
+    html = ''
+
+    messages = []
+
+    for instance in dialogs:
+        opponent = instance.opponent
+        if instance.opponent == user:
+            opponent = instance.owner
+
+        if models.Message.objects.filter(dialog=instance, read=False, sender=opponent).exists():
+            msgs = models.Message.objects.filter(dialog=instance, read=False, sender=opponent)
+            count += msgs.count()
+            messages += msgs
+
+    if messages:
+        html = render_to_string('chat/partials/notification.html', {'messages': sorted(messages, key=lambda x: x.id, reverse=True)})
+
+    return {
+        'type': 'check_unread',
+        'count': count,
+        'unreads': html
+    }
 
 
 @asyncio.coroutine
@@ -212,6 +217,7 @@ def new_messages_handler(stream):
                     packet['myMessage'] = myMessage
                     packet['newMessage'] = newMessage
                     packet['newSender'] = newSender
+                    packet['unread'] = render_to_string('chat/partials/notification.html', {'messages': [msg]})
 
                     # Send the message
                     connections = []

@@ -3,17 +3,12 @@
 <a class="userOffline" href="/chat/{{ id }}" id="{{ userId }}">
     <section class="card myCard {% if opened %}selecte{% endif %}">
         <div class="card-block">
-            <h5 class="card-title">
+            <h5 class="card-title ctitle" >
             <span class="ldate pull-right">
                 {{ last.my_get_formatted_create_datetime }}
             </span>
 
             <span class="badge uread {% if unread == 0%}hide{% endif %}">{{ unread }}</span>
-                {% if opened %}
-                    <div class="circle_act"></div>
-                {% else %}
-                    <div class="circle_con"></div>
-                {% endif %}
 
                 {% if image %}
                     <img src="{{ image }}" class="avatar">
@@ -22,6 +17,8 @@
                 {% endif %}
 
                 <span class="coname" style="text-transform: capitalize;">{{ name }} </span>
+                <div class="circle_con"></div>
+
                 <span class="last">{{ last.text }}</span>
             </h5>
         </div>

@@ -1,0 +1,21 @@
+{% load static %}
+
+{% for message in messages %}
+    <a href="{% url 'dialogs_detail' id=message.sender.id %}">
+        <div class="dropdown-menu-notif-item">
+            <div class="photo" style="text-align: center; color: gray;">
+                {% if message.sender_photo %}
+                    <img src="{{ message.sender_photo }}" alt="">
+                {% else %}
+                    <img src="{% static 'img/placeholder.png' %}" alt="">
+                {% endif %}
+                <span style="font-size: x-small;">
+                    {{ message.get_formatted_create_datetime }}
+                </span>
+            </div>
+            <span class="notiName">{{ message.sender.first_name }}</span>
+            <span class="notiText">{{ message.text }}</span>
+        </div>
+    </a>
+
+{% endfor %}

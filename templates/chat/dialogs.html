@@ -4,7 +4,6 @@
 {% load static %}
 {% load i18n chat_tags %}
 <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 {% block css %}
     <style>
@@ -26,25 +25,26 @@
         }
 
         .coname{
-            color: #737070;
-            font-weight: 400;
+            color: #3a3a3a;
+            font-weight: 600;
+            font-size: smaller;
         }
         .last{
             display: block;
-            color: #737070;
-            font-weight: 100;
+            color: #979797;
+            font-weight: 600;
             font-size: small;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
         }
         .ldate{
-            color: #737070;
-            font-weight: 100;
+            color: #979797;
+            font-weight: 600;
             font-size: small;
         }
-        .card-title{
-            margin: 0;
+        .ctitle{
+            margin: 0 4px;
         }
 
         .circle {
@@ -58,38 +58,15 @@
         .circle_con {
             border-radius: 100%;
             display: inline-block;
-            height: 14px;
-            width: 14px;
-            position: absolute;
-            top: 56%;
-            left: 9%;
-            border: 3px solid white;
-        }
-        .circle_act {
-            border-radius: 100%;
-            display: inline-block;
-            height: 12px;
-            width: 12px;
-            position: absolute;
-            top: 57%;
-            left: 10%;
-            border: 2px solid white;
+            height: 5px;
+            width: 5px;
         }
 
-        .userOffline>section>div>h5>.circle_con,.circle_act {
+        .userOffline>section>div>h5>.circle_con{
             background: rgb(100, 102, 99);
         }
 
-        .userOnline>section>div>h5>.circle_con, .circle_act{
-            background: rgb(66, 183, 42);
-        }
-
-
-        .userOffline>section>div>h5>.circle_act {
-            background: rgb(100, 102, 99);
-        }
-
-        .userOnline>section>div>h5>.circle_act{
+        .userOnline>section>div>h5>.circle_con{
             background: rgb(66, 183, 42);
         }
 
@@ -167,18 +144,17 @@
         }
         .fieldcontainer{
             margin-bottom: 1%;
-            -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.1) !important;
+            -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.1) !important;
         }
         .fieldcontainer > input{
             border-color: #efeded !important;
-            border-radius: 2px;
         }
 
         .chatbox{
             height: 350px;
             overflow-y: auto;
             overflow-x: hidden;
-            margin: 0px;
+            margin: 0 4px 0 15px;
             padding: 10px;
         }
         .selecte>div>h5>span{
@@ -195,9 +171,9 @@
         .uread{
             background: red;
             border-radius: 100%;
-            font-size: 50%;
+            font-size: 56%;
             position: absolute;
-            right: 7%;
+            right: 4%;
             top: 50%;
         }
         .hide{
@@ -250,7 +226,8 @@
             }
         }
         #search_user{
-            height: 70px;
+            height: 71px;
+            padding: .5rem 1.5rem !important;
         }
         #suggested-users {
             display: none;
@@ -322,11 +299,11 @@
             background: #FAFBFD !important;
         }
         .box-typical-full-height{
-            -webkit-box-shadow: 0px 0 12px rgba(0, 0, 0, 0.1) !important;
+            -webkit-box-shadow: 0px 0 1px rgba(0, 0, 0, 0.1) !important;
             border-color: #f8f8f8;
         }
         input.empty {
-            font-family: FontAwesome;
+            font-family: FontAwesome,sans-serif;
             font-style: normal;
             font-weight: normal;
             text-decoration: inherit;
@@ -351,7 +328,7 @@
     <div class="container">
         <h3>{% trans "Chat" %}</h3>
         <div class="row">
-            <div class="col-md-5" style="padding: 0;">
+            <div class="col-md-5" style="padding: 0 4px;">
                 <div class="fieldcontainer">
                     <input type="text" name="term" id="search_user" class="form-control empty" placeholder="&#xF002;&nbsp;&nbsp; Search" tabindex="1" autocomplete="off">
                     <div id="suggested-users">
@@ -406,16 +383,20 @@
                                 <div class="col-md-11 col-xs-11">
                                         <textarea rows="3" id="chat-message" class="form-control message"
                                                   placeholder="{% trans 'Write a message' %}"></textarea>
-                                    <button class="btn btn-default tBtn" type="button">HACER OFERTA</button>
-                                    <button class="btn btn-default tBtn" type="button">SOLICITAR VISITA</button>
-                                <br>
-                                <br>
+
                                 </div>
 
                                 <div class="col-md-1 col-xs-1">
                                     <a id="btn-send-message"  class="sendBtn">
                                         <img src="{% static 'img/send.png' %}">
                                     </a>
+                                </div>
+
+                                <div class="col-md-12" style="padding-right: 22px;">
+                                    <button class="btn btn-default tBtn" type="button">HACER OFERTA</button>
+                                    <button class="btn btn-default tBtn" type="button">SOLICITAR VISITA</button>
+                                    <br>
+                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -684,11 +665,11 @@
 
             $('#search_user').keyup(function(e){
                 var input = $(this);
-                if(input.val().length === 0) {
-                    input.addClass('empty');
-                } else {
-                    input.removeClass('empty');
-                }
+                {#                if(input.val().length === 0) {#}
+                {#                    input.addClass('empty');#}
+                {#                } else {#}
+                {#                    input.removeClass('empty');#}
+                {#                }#}
                 setTimeout(function(){
                     var term = e.currentTarget.value;
                     lookupUsers(term);

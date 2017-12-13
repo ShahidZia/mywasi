@@ -6,6 +6,8 @@ from django.conf import settings
 from django.template.defaultfilters import date as dj_date
 from django.utils.translation import ugettext as _
 
+from accounts.models import Profile
+
 
 class Dialog(TimeStampedModel):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Dialog owner"), related_name="selfDialogs")
@@ -35,6 +37,13 @@ class Message(TimeStampedModel, SoftDeletableModel):
 
     def my_get_formatted_create_datetime(self):
         return dj_date(self.created, "d M")
+
+    def sender_photo(self):
+        profile = Profile.objects.get(user=self.sender)
+        if profile.image:
+            return profile.image.url
+        else:
+            return False
 
     def __str__(self):
         return self.sender.username + "(" + self.get_formatted_create_datetime() + ") - '" + self.text + "'"

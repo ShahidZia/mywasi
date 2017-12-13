@@ -95,12 +95,29 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-1" style="text-align: center; padding: 5px;">
-                    <a id="notify">
-                        <i class="fa fa-bell-o fa-2x " role="button" style="font-size: 1.4em" aria-hidden="true">
-                            <span style="display: none;" class="bubble"></span>
-                        </i>
-                    </a>
+                <div class="col-1">
+                    <div class="dropdown dropdown-notification notif">
+                        <a href="#"
+                           class="header-alarm dropdown-toggle active"
+                           id="dd-notification"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            <i class="font-icon-alarm"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-notif nHide"  aria-labelledby="dd-notification">
+                            <div class="dropdown-menu-notif-header">
+                                Notifications
+                                <span id='pill' class="label label-pill label-danger">0</span>
+                            </div>
+                            <div class="dropdown-menu-notif-list">
+
+                            </div>
+                            <div class="dropdown-menu-notif-more">
+                                <a href="{% url 'dialogs' %}">See more</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-3 site-header-shown">
                     <div class="dropdown user-menu">
@@ -241,12 +258,22 @@
                 if(packet.type === "new-message") {
                     var audio = new Audio('{% static 'sounds/facebook.mp3' %}');
                     audio.play();
-                    $('.bubble').show();
-                    $('#notify').attr('href','/chat/'+packet['sender_id']);
+                    $('.dropdown-menu-notif').removeClass('nHide');
+                    $('.dropdown-menu-notif').removeClass('show');
+
+                    var elem = $('#pill');
+                    $('#dd-notification').addClass('actNotify');
+                    elem.text(parseInt(elem.text())+1);
+                    $('.dropdown-menu-notif-list').prepend(packet.unread);
                 }
                 else if(packet.type === "check_unread"){
-                    $('.bubble').show();
-                    $('#notify').attr('href','/chat/'+packet.message_id);
+                    var elem = $('#pill');
+                    if(packet.count){
+                        $('.dropdown-menu-notif').removeClass('nHide');
+                        elem.text(packet.count);
+                        $('#dd-notification').addClass('actNotify');
+                        $('.dropdown-menu-notif-list').append(packet.unreads);
+                    }
                 }
             }
         }
@@ -254,6 +281,11 @@
         if(window.location.pathname.indexOf("chat") == -1){
             setupChatWebSocket();
         }
+
+        $('#dd-notification').click(function (event) {
+            $(this).removeClass('actNotify');
+        });
+
     });
 </script>
 
