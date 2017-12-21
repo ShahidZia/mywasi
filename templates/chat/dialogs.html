@@ -541,7 +541,7 @@
             function lastPutSeen() {
                 var elem = $('.msg-read').last();
                 if (!$(elem).hasClass('opponent')){
-                    elem.find('.col-md-8').append('<div class="seen">Seen &#10003<div>');
+                    elem.find('.col-md-9').append('<div class="seen">Seen &#10003<div>');
                 }
             }
 
@@ -655,7 +655,7 @@
                         case "opponent-read-message":
                             if (packet['username'] != opponent_username) {
                                 $('.seen').fadeOut();
-                                $("div[data-id='" + packet['message_id'] + "']").removeClass('msg-unread').addClass('msg-read').find('.col-md-8').append('<div class="seen">Seen &#10003<div>');
+                                $("div[data-id='" + packet['message_id'] + "']").removeClass('msg-unread').addClass('msg-read').find('.col-md-9').append('<div class="seen">Seen &#10003<div>');
                             }
                             break;
 
